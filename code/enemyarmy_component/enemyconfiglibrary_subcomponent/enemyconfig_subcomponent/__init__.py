@@ -1,0 +1,1 @@
+from enemyconfig_class import DefineEnemyConfiguration

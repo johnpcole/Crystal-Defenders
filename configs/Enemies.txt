@@ -1,0 +1,17 @@
+Wave = 01	Name = Cockatrice	Health = 10
+Wave = 02	Name = Baknamy	Health = 35
+Wave = 03	Name = Antlion	Health = 75
+Wave = 04	Name = Red Mallow	Health = 90	Resist-Physical = 1
+Wave = 05	Name = Wolf	Health = 50	Speed = Fast
+Wave = 06	Name = Alruane	Health = 100
+Wave = 07	Name = Tonbury	Health = 170	Resist-Magical = 1
+Wave = 08	Name = Bomby	Health = 160	Move = Fly
+Wave = 09	Name = Nagaraja	Health = 1500	Number = 4	Spacing = 900	Crystal = 5
+Wave = 10	Name = Lamia	Health = 230	Speed = Fast	Resist-Magical = 1
+Wave = 11	Name = Yellow Mallow	Health = 270	Resist-Physical = 2
+Wave = 12	Name = Ice Drake	Health = 300
+Wave = 13	Name = Axebeak	Health = 360
+Wave = 14	Name = Ahriman	Health = 415	Move = Fly	Resist-Magical = 2
+Wave = 15	Name = Luchorpan	Health = 550
+Wave = 16	Name = Behemoth	Health = 630	Resist-Magical = 2
+Wave = 17	Name = Ice Flan	Health = 850	Resist-Physical = 3

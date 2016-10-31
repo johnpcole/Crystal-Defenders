@@ -1,0 +1,13 @@
+Defender Type = Theif
+Move Speed = 0.5
+Combat Speed = -1
+Combat Realm = Theiving
+Combat Strike Radius = 1
+Combat Collateral Radius = 30
+Combat Ammo = None
+Level = 1	Engage Radius = 090	Combat Strength = -1	Cost = 008
+Level = 2	Engage Radius = 100	Combat Strength = -1	Cost = 015
+Level = 3	Engage Radius = 110	Combat Strength = -1	Cost = 025
+Level = 4	Engage Radius = 120	Combat Strength = -1	Cost = 050
+Level = 5	Engage Radius = 130	Combat Strength = -1	Cost = 100
+Level = 6	Engage Radius = 140	Combat Strength = -1	Cost = 150
