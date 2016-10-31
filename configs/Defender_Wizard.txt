@@ -1,0 +1,13 @@
+Defender Type = Wizard
+Move Speed = 1.0
+Combat Speed = 100
+Combat Realm = Magical
+Combat Strike Radius = 1
+Combat Collateral Radius = 30
+Combat Ammo = Magic
+Level = 1	Engage Radius = 090	Combat Strength = 007	Cost = 008
+Level = 2	Engage Radius = 100	Combat Strength = 015	Cost = 015
+Level = 3	Engage Radius = 110	Combat Strength = 030	Cost = 025
+Level = 4	Engage Radius = 120	Combat Strength = 070	Cost = 050
+Level = 5	Engage Radius = 130	Combat Strength = 100	Cost = 100
+Level = 6	Engage Radius = 140	Combat Strength = 160	Cost = 150

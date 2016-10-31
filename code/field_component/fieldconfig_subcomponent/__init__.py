@@ -1,0 +1,1 @@
+from fieldconfig_class import DefineFieldConfiguration

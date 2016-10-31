@@ -1,0 +1,13 @@
+Defender Type = Soldier
+Move Speed = 0.25
+Combat Speed = 100
+Combat Realm = Physical
+Combat Strike Radius = 1
+Combat Collateral Radius = 0
+Combat Ammo = None
+Level = 1	Engage Radius = 070	Combat Strength = 009	Cost = 008
+Level = 2	Engage Radius = 072	Combat Strength = 025	Cost = 015
+Level = 3	Engage Radius = 074	Combat Strength = 045	Cost = 025
+Level = 4	Engage Radius = 076	Combat Strength = 090	Cost = 050
+Level = 5	Engage Radius = 078	Combat Strength = 150	Cost = 100
+Level = 6	Engage Radius = 080	Combat Strength = 300	Cost = 150

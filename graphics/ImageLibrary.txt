@@ -1,0 +1,28 @@
+Enemies	Cockatrice	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Baknamy	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Antlion	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Red Mallow	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Wolf	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Alruane	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Bomby	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Lamia	W1, W2, S1, S2, E1, E2, N1, N2
+Enemies	Nagaraja	W1, W2, S1, S2, E1, E2, N1, N2
+Defenders	Archer	E1, E2, E3, W1, W2, W3, N1, N2, N3, S1, S2, S3
+Defenders	Soldier	E1, E2, E3, W1, W2, W3, N1, N2, N3, S1, S2, S3
+Defenders	Wizard	E1, E2, E3, W1, W2, W3, N1, N2, N3, S1, S2, S3
+Defenders	Arrow	N, NE, E, SE, S, SW, W, NW
+Defenders	Magic	0, 1, 2, 3
+Background	Path	Full, N, S, E, W, External NE, External SE, External SW, External NW, Internal NE, Internal SE, Internal SW, Internal NW
+Background	Border
+Background	Defender
+Background	Grass
+Other	Coin	0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+Other	Crystal	0, 1, 2, 3, 4, 5, 6, 7, 8
+Other	Highlight	Defender Base, Field Allowed, Field Disallowed
+Other	Plaque
+Buttons	Add	Archer, Soldier, Wizard
+Buttons	Cancel
+Buttons	Speed	Fast, Slow, Stop
+Buttons	Start Wave
+Buttons	Upgrade Defender
+Buttons	Overlay	Disabled, Hover

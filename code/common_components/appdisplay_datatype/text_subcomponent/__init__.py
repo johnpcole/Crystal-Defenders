@@ -1,0 +1,1 @@
+from text_class import DefineTextGenerator
