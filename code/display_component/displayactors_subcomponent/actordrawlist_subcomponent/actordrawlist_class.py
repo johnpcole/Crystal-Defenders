@@ -1,4 +1,4 @@
-from ....common_components import *
+from ....common_components.vector_datatype import vector_module as Vector
 
 
 

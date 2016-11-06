@@ -1,5 +1,5 @@
-from button_subcomponent import DefineButton
-from ...common_components import Vector
+from button_subcomponent import button_module as Button
+from ...common_components.vector_datatype import vector_module as Vector
 
 
 
@@ -36,7 +36,7 @@ class DefineButtonLibrary:
 	def createbutton(self, buttonname, buttonpositionx, buttonpositiony, buttondimensionsx, buttondimensionsy,
 																										buttoncost):
 
-		self.area[buttonname] = DefineButton(Vector.createfromvalues(buttonpositionx, buttonpositiony),
+		self.area[buttonname] = Button.createbutton(Vector.createfromvalues(buttonpositionx, buttonpositiony),
 											Vector.createfromvalues(buttondimensionsx, buttondimensionsy), buttoncost)
 
 

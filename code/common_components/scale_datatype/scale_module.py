@@ -1,15 +1,15 @@
-from scale_class import DefineScale
+from . import scale_class as ScaleClass
 
 
 
 def createfull(maxval):
-	newscale = DefineScale(maxval)
+	newscale = ScaleClass.DefineScale(maxval)
 	return newscale
 
 
 
 def createempty(maxval):
-	newscale = DefineScale(maxval)
+	newscale = ScaleClass.DefineScale(maxval)
 	newscale.discharge()
 	return newscale
 

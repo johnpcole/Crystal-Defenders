@@ -4,9 +4,9 @@ class DefineVector:
 	# Vectors are defined from a pair of values
 	# ---------------------------------------------
 
-	def __init__(self, xval, yval):
-		self.x = xval
-		self.y = yval
+	def __init__(self):
+		self.x = 0
+		self.y = 0
 
 
 

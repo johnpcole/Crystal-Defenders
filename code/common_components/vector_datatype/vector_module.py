@@ -1,4 +1,4 @@
-from vector_class import DefineVector
+from . import vector_class as VectorClass
 
 
 
@@ -7,7 +7,10 @@ from vector_class import DefineVector
 # ---------------------------------------------
 
 def createblank():
-	return DefineVector(-999, -999)
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(0, 0)
+	return newvector
 
 
 
@@ -16,7 +19,10 @@ def createblank():
 # ---------------------------------------------
 
 def createorigin():
-	return DefineVector(0, 0)
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(0, 0)
+	return newvector
 
 
 
@@ -25,7 +31,10 @@ def createorigin():
 # ---------------------------------------------
 
 def createfromvalues(xval, yval):
-	return DefineVector(xval, yval)
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(xval, yval)
+	return newvector
 
 
 
@@ -34,9 +43,11 @@ def createfromvalues(xval, yval):
 # ---------------------------------------------
 
 def createfrompair(pair):
+
 	xval, yval = pair
-	outcome = DefineVector(xval, yval)
-	return outcome
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(xval, yval)
+	return newvector
 
 
 
@@ -45,7 +56,10 @@ def createfrompair(pair):
 # ---------------------------------------------
 
 def createfromvector(inputvector):
-	return DefineVector(inputvector.getx(), inputvector.gety())
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(inputvector.getx(), inputvector.gety())
+	return newvector
 
 
 
@@ -57,7 +71,10 @@ def createfromvector(inputvector):
 # ---------------------------------------------
 
 def add(first, second):
-	return DefineVector(first.getx() + second.getx(), first.gety() + second.gety())
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(first.getx() + second.getx(), first.gety() + second.gety())
+	return newvector
 
 
 
@@ -68,7 +85,10 @@ def add(first, second):
 # ---------------------------------------------
 
 def subtract(first, second):
-	return DefineVector(first.getx() - second.getx(), first.gety() - second.gety())
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(first.getx() - second.getx(), first.gety() - second.gety())
+	return newvector
 
 
 
@@ -79,7 +99,10 @@ def subtract(first, second):
 # ---------------------------------------------
 
 def divide(first, second):
-	return DefineVector(first.getx() / second.getx(), first.gety() / second.gety())
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(first.getx() / second.getx(), first.gety() / second.gety())
+	return newvector
 
 
 
@@ -90,7 +113,10 @@ def divide(first, second):
 # ---------------------------------------------
 
 def multiply(first, second):
-	return DefineVector(first.getx() * second.getx(), first.gety() * second.gety())
+
+	newvector = VectorClass.DefineVector()
+	newvector.setfromvalues(first.getx() * second.getx(), first.gety() * second.gety())
+	return newvector
 
 
 

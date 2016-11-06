@@ -1,5 +1,5 @@
-from defenderconfig_subcomponent import DefineDefenderConfiguration
-from ...common_components import File
+from defenderconfig_subcomponent import defenderconfig_module as DefenderConfiguration
+from ...common_components.fileprocessing_framework import fileprocessing_module as File
 
 
 
@@ -25,7 +25,7 @@ class DefineDefenderConfigurationLibrary:
 			rawconfigs = File.readfromdisk("configs/Defender_" + filename + ".txt")
 			
 			# Create a new defender configuration object
-			newdefendertypeconfig = DefineDefenderConfiguration()
+			newdefendertypeconfig = DefenderConfiguration.createconfig()
 
 			# Loop over all lines of data
 			for configitem in rawconfigs:
@@ -36,7 +36,7 @@ class DefineDefenderConfigurationLibrary:
 				if fieldname == "Level":
 
 					# Create a new defender configuration object based on the partial one above
-					newdefenderlevelconfig = DefineDefenderConfiguration()
+					newdefenderlevelconfig = DefenderConfiguration.createconfig()
 					newdefenderlevelconfig.copypartialconfig(newdefendertypeconfig)
 
 					# Get the tabulated data

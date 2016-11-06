@@ -1,1 +1,0 @@
-import appdisplay_datatype as AppDisplay
