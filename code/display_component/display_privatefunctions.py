@@ -1,4 +1,4 @@
-from ..common_components import File
+from ..common_components.fileprocessing_framework import fileprocessing_module as File
 
 # -------------------------------------------------------------------
 # Returns the colour of text for crystal count
