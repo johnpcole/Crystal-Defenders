@@ -1,4 +1,4 @@
-from code import CrystalDefenders
+from code import main_application as CrystalDefenders
 
 
 
