@@ -96,21 +96,17 @@ class DefineApplicationWindow:
 	# Draws a rectangle
 	# -------------------------------------------------------------------
 
-	def drawbox(self, topleft, rectanglesize, colour):
+	def drawrectangle(self, topleft, rectanglesize, fillcolour, bordercolour, borderwidth):
 
-		GUI.draw.rect(self.windowobject, self.colourlibrary.get(colour),
+		# Draw fill
+		if fillcolour != "":
+			GUI.draw.rect(self.windowobject, self.colourlibrary.get(fillcolour),
 														(topleft.getcoordinates(), rectanglesize.getcoordinates()), 0)
 
-
-
-	# -------------------------------------------------------------------
-	# Draws a rectangle outline
-	# -------------------------------------------------------------------
-
-	def drawboxoutline(self, topleft, rectanglesize, colour, thickness):
-
-		GUI.draw.rect(self.windowobject, self.colourlibrary.get(colour),
-												(topleft.getcoordinates(), rectanglesize.getcoordinates()), thickness)
+		# Draw outline
+		if (bordercolour != "") and (borderwidth != 0):
+			GUI.draw.rect(self.windowobject, self.colourlibrary.get(bordercolour),
+												(topleft.getcoordinates(), rectanglesize.getcoordinates()), borderwidth)
 
 
 
@@ -118,20 +114,16 @@ class DefineApplicationWindow:
 	# Draws a circle
 	# -------------------------------------------------------------------
 
-	def drawcircle(self, centre, radius, colour):
+	def drawcircle(self, centre, radius, fillcolour, bordercolour, borderwidth):
 
-		GUI.draw.circle(self.windowobject, self.colourlibrary.get(colour), (centre.getcoordinates()), radius, 0)
+		# Draw fill
+		if fillcolour != "":
+			GUI.draw.circle(self.windowobject, self.colourlibrary.get(fillcolour), (centre.getcoordinates()), radius, 0)
 
-
-
-	# -------------------------------------------------------------------
-	# Draws a circle outline
-	# -------------------------------------------------------------------
-
-	def drawcircleoutline(self, centre, radius, colour, thickness):
-
-		GUI.draw.circle(self.windowobject, self.colourlibrary.get(colour),
-																		(centre.getcoordinates()), radius, thickness)
+		# Draw outline
+		if (bordercolour != "") and (borderwidth != 0):
+			GUI.draw.circle(self.windowobject, self.colourlibrary.get(bordercolour),
+																		(centre.getcoordinates()), radius, borderwidth)
 
 
 

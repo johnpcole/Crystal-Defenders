@@ -145,8 +145,8 @@ class DefineDisplay:
 
 		for buttonname in self.buttonlist:
 			if control.buttons.getbuttonstate(buttonname) != "Hidden":
-				self.display.drawbox(control.buttons.getbuttonlocation(buttonname),
-																control.buttons.getbuttonsize(buttonname), "Black")
+				self.display.drawrectangle(control.buttons.getbuttonlocation(buttonname),
+															control.buttons.getbuttonsize(buttonname), "Black", "", 0)
 
 
 
@@ -236,7 +236,7 @@ class DefineDisplay:
 		self.paintactors()
 
 		#Clear-up overhaging actors on the right of the screen
-		self.display.drawbox(self.overhanglocation, self.overhangsize, "Black")
+		self.display.drawrectangle(self.overhanglocation, self.overhangsize, "Black", "", 0)
 
 
 
@@ -278,11 +278,11 @@ class DefineDisplay:
 		topleftcorner = Vector.add(topleft, Vector.createfromvalues(int((dimensions.getx() - barfullwidth) / 2), 0))
 
 		# Draw full width red bar
-		self.display.drawbox(topleftcorner, Vector.createfromvalues(barfullwidth, 3), "Dirty Red")
+		self.display.drawrectangle(topleftcorner, Vector.createfromvalues(barfullwidth, 3), "Dirty Red", "", 0)
 
 		# Draw proportional yellow bar
-		self.display.drawbox(topleftcorner, Vector.createfromvalues(int(barfullwidth * healthpercentage / 100), 3),
-																										"Dirty Yellow")
+		self.display.drawrectangle(topleftcorner, Vector.createfromvalues(int(barfullwidth * healthpercentage / 100),
+																							3), "Dirty Yellow", "", 0)
 
 
 
@@ -313,7 +313,7 @@ class DefineDisplay:
 
 	def erasestats(self):
 
-		self.display.drawbox(Vector.createfromvalues(620, 50), Vector.createfromvalues(100, 100), "Black")
+		self.display.drawrectangle(Vector.createfromvalues(620, 50), Vector.createfromvalues(100, 100), "Black", "", 0)
 
 
 
@@ -326,7 +326,7 @@ class DefineDisplay:
 		if control.getbetweenwavestate() == True:
 			self.display.drawimage("Plaque", Vector.createfromvalues(203, 133))
 			self.display.drawtext("Next Wave!", Vector.createfromvalues(303, 150), "Centre", "Yellow", "20")
-			self.display.drawcircle(Vector.createfromvalues(303, 230), 46, "Dirty Purple")
+			self.display.drawcircle(Vector.createfromvalues(303, 230), 46, "Dirty Purple", "", 0)
 			self.display.drawimage(enemyarmy.getname() + " - S" + self.getplaqueanimationframe(),
 																					Vector.createfromvalues(271, 199))
 			self.display.drawtext(enemyarmy.getname(), Vector.createfromvalues(303, 295), "Centre", "Yellow", "20")
