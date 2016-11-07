@@ -1,4 +1,4 @@
-from ....common_components import GUI
+from ....common_components.userinterface_framework import userinterface_module as GUI
 
 
 
@@ -16,7 +16,7 @@ class DefineTextGenerator:
 
 
 
-	def gettextwidth(self, textstring, fontname):
+	def gettextsize(self, textstring, fontname):
 		return self.fontlibrary[fontname].size(textstring)
 
 

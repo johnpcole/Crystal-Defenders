@@ -1,4 +1,4 @@
-from ....common_components import GUI
+from ...userinterface_framework import userinterface_module as GUI
 
 
 
@@ -34,9 +34,15 @@ class DefineImageLibrary:
 			fullpath = "graphics\\" + subfolder + "\\" + filename + ".png"
 
 		if transparency == True:
-			self.key[imagelabel] = GUI.image.load(fullpath).convert_alpha()
+			try:
+				self.key[imagelabel] = GUI.image.load(fullpath).convert_alpha()
+			except:
+				print "Cannot load image - ", fullpath
 		else:
-			self.key[imagelabel] = GUI.image.load(fullpath).convert()
+			try:
+				self.key[imagelabel] = GUI.image.load(fullpath).convert()
+			except:
+				print "Cannot load image - ", fullpath
 
 
 

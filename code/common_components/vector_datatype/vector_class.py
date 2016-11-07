@@ -4,9 +4,9 @@ class DefineVector:
 	# Vectors are defined from a pair of values
 	# ---------------------------------------------
 
-	def __init__(self, xval, yval):
-		self.x = xval
-		self.y = yval
+	def __init__(self):
+		self.x = 0
+		self.y = 0
 
 
 
@@ -128,7 +128,9 @@ class DefineVector:
 	# ---------------------------------------------
 
 	def getinverted(self):
-		return DefineVector(-self.x, -self.y)
+		outcome = DefineVector()
+		outcome.setfromvalues(-self.x, -self.y)
+		return outcome
 
 
 
@@ -138,7 +140,9 @@ class DefineVector:
 	# ---------------------------------------------
 
 	def getswapped(self):
-		return DefineVector(self.y, self.x)
+		outcome = DefineVector()
+		outcome.setfromvalues(self.y, self.x)
+		return outcome
 
 
 
@@ -147,7 +151,9 @@ class DefineVector:
 	# ---------------------------------------------
 
 	def getint(self):
-		return DefineVector(int(self.x), int(self.y))
+		outcome = DefineVector()
+		outcome.setfromvalues(int(self.x), int(self.y))
+		return outcome
 
 
 
@@ -156,7 +162,9 @@ class DefineVector:
 	# ---------------------------------------------
 
 	def getfloat(self):
-		return DefineVector(float(self.x), float(self.y))
+		outcome = DefineVector()
+		outcome.setfromvalues(float(self.x), float(self.y))
+		return outcome
 
 
 
@@ -166,7 +174,9 @@ class DefineVector:
 	# ---------------------------------------------
 
 	def getrotated(self):
-		return DefineVector(0 - self.y, self.x)
+		outcome = DefineVector()
+		outcome.setfromvalues(0 - self.y, self.x)
+		return outcome
 
 
 
@@ -187,7 +197,9 @@ class DefineVector:
 	# ---------------------------------------------
 
 	def getscaled(self, factor):
-		return DefineVector(self.x * factor, self.y * factor)
+		outcome = DefineVector()
+		outcome.setfromvalues(self.x * factor, self.y * factor)
+		return outcome
 
 
 
@@ -266,4 +278,3 @@ class DefineVector:
 				outcome = projection[1]
 
 		return outcome
-

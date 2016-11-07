@@ -1,8 +1,8 @@
-from colours_subcomponent import DefineColourLibrary
-from images_subcomponent import DefineImageLibrary
-from text_subcomponent import DefineTextGenerator
-from ...common_components import Vector
-from ...common_components import GUI
+from colours_subcomponent import colours_module as ColourLibrary
+from images_subcomponent import images_module as ImageLibrary
+from text_subcomponent import text_module as TextGenerator
+from ..vector_datatype import vector_module as Vector
+from ..userinterface_framework import userinterface_module as GUI
 
 
 
@@ -26,13 +26,13 @@ class DefineApplicationWindow:
 		GUI.display.set_caption(windowtitle)
 
 		# Loads image library
-		self.imagelibrary = DefineImageLibrary()
+		self.imagelibrary = ImageLibrary.createlibrary()
 
 		# Loads text generator
-		self.textgenerator = DefineTextGenerator()
+		self.textgenerator = TextGenerator.creategenerator()
 
 		# Loads colour library
-		self.colourlibrary = DefineColourLibrary()
+		self.colourlibrary = ColourLibrary.createlibrary()
 
 
 
@@ -104,13 +104,34 @@ class DefineApplicationWindow:
 
 
 	# -------------------------------------------------------------------
+	# Draws a rectangle outline
+	# -------------------------------------------------------------------
+
+	def drawboxoutline(self, topleft, rectanglesize, colour, thickness):
+
+		GUI.draw.rect(self.windowobject, self.colourlibrary.get(colour),
+												(topleft.getcoordinates(), rectanglesize.getcoordinates()), thickness)
+
+
+
+	# -------------------------------------------------------------------
 	# Draws a circle
 	# -------------------------------------------------------------------
 
 	def drawcircle(self, centre, radius, colour):
 
+		GUI.draw.circle(self.windowobject, self.colourlibrary.get(colour), (centre.getcoordinates()), radius, 0)
+
+
+
+	# -------------------------------------------------------------------
+	# Draws a circle outline
+	# -------------------------------------------------------------------
+
+	def drawcircleoutline(self, centre, radius, colour, thickness):
+
 		GUI.draw.circle(self.windowobject, self.colourlibrary.get(colour),
-																				(centre.getcoordinates()), radius, 0)
+																		(centre.getcoordinates()), radius, thickness)
 
 
 
@@ -120,7 +141,7 @@ class DefineApplicationWindow:
 
 	def drawtext(self, outputtext, textposition, alignment, colour, fontname):
 
-		textwidth = Vector.createfrompair(self.textgenerator.gettextwidth(outputtext, fontname)).getx()
+		textwidth = (self.gettextsize(outputtext, fontname)).getx()
 
 		if alignment == "Left":
 			margin = Vector.createorigin()
@@ -142,6 +163,18 @@ class DefineApplicationWindow:
 	# Get Information
 	# ==========================================================================================
 
+	# -------------------------------------------------------------------
+	# Returns the screensize
+	# -------------------------------------------------------------------
+
 	def getscreensize(self):
 		return self.screensize
 
+
+
+	# -------------------------------------------------------------------
+	# Returns the size of a block of a text
+	# -------------------------------------------------------------------
+
+	def gettextsize(self, outputtext, fontname):
+		return Vector.createfrompair(self.textgenerator.gettextsize(outputtext, fontname))

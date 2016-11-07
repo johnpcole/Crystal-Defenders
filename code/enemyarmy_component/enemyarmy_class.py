@@ -1,5 +1,5 @@
-from enemyconfiglibrary_subcomponent import DefineEnemyConfigurationLibrary
-from enemyunit_subcomponent import DefineEnemyUnit
+from enemyconfiglibrary_subcomponent import enemyconfiglibrary_module as EnemyConfigurationLibrary
+from enemyunit_subcomponent import enemyunit_module as EnemyUnit
 
 
 
@@ -25,7 +25,7 @@ class DefineEnemyArmy:
 		self.initialhealth = -999
 
 		# Store all the enemy configurations
-		self.configlibrary = DefineEnemyConfigurationLibrary()
+		self.configlibrary = EnemyConfigurationLibrary.createconfig()
 		
 		
 
@@ -115,7 +115,7 @@ class DefineEnemyArmy:
 			startposition = int(field.getstartingposition() - (enemyunit * config.spacing))
 
 			# Create an enemy object with the correct configuration
-			self.units.append(DefineEnemyUnit(startposition, config.health, config.speed,
+			self.units.append(EnemyUnit.createconfig(startposition, config.health, config.speed,
 													config.coinvalue, field.getselectionsize(), config.physical,
 													config.magical, config.flies, config.crystalvalue, config.name))
 

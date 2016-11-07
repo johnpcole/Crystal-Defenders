@@ -1,6 +1,6 @@
-from defenderconfiglibrary_subcomponent import DefineDefenderConfigurationLibrary
-from defenderunit_subcomponent import DefineDefenderUnit
-from ..common_components import Vector
+from defenderconfiglibrary_subcomponent import defenderconfiglibrary_module as DefenderConfigurationLibrary
+from defenderunit_subcomponent import defenderunit_module as DefenderUnit
+from ..common_components.vector_datatype import vector_module as Vector
 
 
 
@@ -23,7 +23,7 @@ class DefineDefenderArmy:
 		self.defendergroundsize = field.getselectionsize()
 
 		# Store all the defender configurations
-		self.configlibrary = DefineDefenderConfigurationLibrary()
+		self.configlibrary = DefenderConfigurationLibrary.createconfig()
 		
 
 
@@ -87,7 +87,7 @@ class DefineDefenderArmy:
 		config = self.configlibrary.getdefenderconfig(newdefendertype, 1)
 
 		# Add the new defender, using all the configuration parameters
-		self.units.append(DefineDefenderUnit(controls.getfieldselectionlocation(), config.movespeed,
+		self.units.append(DefenderUnit.createconfig(controls.getfieldselectionlocation(), config.movespeed,
 												config.combatspeed, config.strength, config.engageradius,
 												newdefendertype, self.defendergroundsize, config.strikeradius,
 												config.collateralradius, config.realm, config.ammo))

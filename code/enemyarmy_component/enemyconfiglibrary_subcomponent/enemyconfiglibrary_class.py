@@ -1,5 +1,5 @@
-from enemyconfig_subcomponent import DefineEnemyConfiguration
-from ...common_components import File
+from enemyconfig_subcomponent import enemyconfig_module as EnemyConfiguration
+from ...common_components.fileprocessing_framework import fileprocessing_module as File
 
 class DefineEnemyConfigurationLibrary:
 	# ==========================================================================================
@@ -23,7 +23,7 @@ class DefineEnemyConfigurationLibrary:
 		for configitem in rawconfigs:
 
 			# Create a new enemy configuration object
-			newenemyconfig = DefineEnemyConfiguration()
+			newenemyconfig = EnemyConfiguration.createconfig()
 
 			# Get the tabulated data
 			tabulatedlist = File.tabulateddata(configitem)

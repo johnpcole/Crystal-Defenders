@@ -1,5 +1,5 @@
-from ...common_components import Vector
-from ...common_components import File
+from ...common_components.vector_datatype import vector_module as Vector
+from ...common_components.fileprocessing_framework import fileprocessing_module as File
 
 
 

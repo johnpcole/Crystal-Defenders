@@ -1,4 +1,4 @@
-from ..common_components import Scale
+from ..common_components.scale_datatype import scale_module as Scale
 
 
 

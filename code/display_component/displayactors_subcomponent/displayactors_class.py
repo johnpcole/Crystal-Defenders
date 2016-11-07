@@ -1,7 +1,7 @@
-from ...common_components import *
+from ...common_components.vector_datatype import vector_module as Vector
 from operator import attrgetter # , itemgetter, methodcaller
-from actordrawlist_subcomponent import DefineDisplayActor
-from actoreraselist_subcomponent import DefineEraseBlock
+from actordrawlist_subcomponent import actordrawlist_module as DisplayActor
+from actoreraselist_subcomponent import actoreraselist_module as EraseBlock
 
 
 
@@ -72,7 +72,7 @@ class DefineActorList:
 
 	def addactortoactorlist(self, itemname, itemposition, itemdimensions, itemzorder, itemhealth):
 
-		self.actors.append(DefineDisplayActor(itemposition, itemdimensions, itemname, itemzorder, itemhealth))
+		self.actors.append(DisplayActor.createdrawitem(itemposition, itemdimensions, itemname, itemzorder, itemhealth))
 
 
 
@@ -128,7 +128,7 @@ class DefineActorList:
 		self.blockids.append(blockidentifier)
 
 		# Add block's pixel position and ground type to erase list
-		self.blocks.append(DefineEraseBlock(field.convertblocktopixel(blockposition),
+		self.blocks.append(EraseBlock.createeraseitem(field.convertblocktopixel(blockposition),
 																				field.getgroundtype(blockposition)))
 
 

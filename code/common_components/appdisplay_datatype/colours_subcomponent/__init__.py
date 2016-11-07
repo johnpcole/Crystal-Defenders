@@ -1,1 +1,0 @@
-from colours_class import DefineColourLibrary

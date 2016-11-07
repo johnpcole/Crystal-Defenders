@@ -1,10 +1,10 @@
-from controls_component import DefineController
-from game_component import DefineGame
-from field_component import DefineField
-from display_component import DefineDisplay
-from defenderarmy_component import DefineDefenderArmy
-from enemyarmy_component import DefineEnemyArmy
-from common_components import GUI
+from controls_component import controls_module as Controller
+from game_component import game_module as Game
+from field_component import field_module as Field
+from display_component import display_module as Display
+from defenderarmy_component import defenderarmy_module as DefenderArmy
+from enemyarmy_component import enemyarmy_module as EnemyArmy
+from common_components.userinterface_framework import userinterface_module as GUI
 
 
 
@@ -18,12 +18,12 @@ def runapplication():
 	# Define objects used to drive game            #
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-	field = DefineField()
-	enemyarmy = DefineEnemyArmy()
-	defenderarmy = DefineDefenderArmy(field)
-	controls = DefineController(field, defenderarmy)
-	display = DefineDisplay(field, controls)
-	game = DefineGame()
+	field = Field.createfield()
+	enemyarmy = EnemyArmy.createarmy()
+	defenderarmy = DefenderArmy.createarmy(field)
+	controls = Controller.createcontroller(field, defenderarmy)
+	display = Display.createdisplay(field, controls)
+	game = Game.creategame()
 
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 	# Paint field and Start level 1                 #

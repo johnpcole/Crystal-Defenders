@@ -1,8 +1,8 @@
-from ..common_components import Scale
-from ..common_components import Vector
-from ..common_components import AppDisplay
-from displayactors_subcomponent import DefineActorList
-import display_privatefunctions as DisplayFunction
+from ..common_components.scale_datatype import scale_module as Scale
+from ..common_components.vector_datatype import vector_module as Vector
+from ..common_components.appdisplay_framework import appdisplay_module as AppDisplay
+from displayactors_subcomponent import displayactors_module as DisplayActorList
+from . import display_privatefunctions as DisplayFunction
 
 
 
@@ -19,7 +19,7 @@ class DefineDisplay:
 		self.displaysize = Vector.add(field.getsize(), Vector.createfromvalues(200, 0))
 
 		# Sets up pygame window related properties & methods and loads images, fonts & custom colours
-		self.display = AppDisplay.createappwindow(self.displaysize, "Crystal Defenders")
+		self.display = AppDisplay.createwindow(self.displaysize, "Crystal Defenders")
 		self.display.addfont("20", "graphics/Font.ttf", 20)
 		self.setupcustomcolours()
 		self.setupimages()
@@ -28,7 +28,7 @@ class DefineDisplay:
 		self.miscanimationclock = Scale.createfull(1000)
 
 		# Sets up the list of actors, for efficient painting of defenders, ammo and enemies
-		self.actorlist = DefineActorList()
+		self.actorlist = DisplayActorList.createlist()
 
 		# Stores right-hand location of field for wiping overhang
 		self.overhanglocation = Vector.createfromvalues(field.getsize().getx(), 0)

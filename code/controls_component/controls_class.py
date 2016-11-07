@@ -1,6 +1,6 @@
-from buttonlibrary_component import DefineButtonLibrary
-from ..common_components import Vector
-from ..common_components import GUI
+from buttonlibrary_component import buttonlibrary_module as ButtonLibrary
+from ..common_components.vector_datatype import vector_module as Vector
+from ..common_components.userinterface_framework import userinterface_module as GUI
 
 
 
@@ -14,7 +14,7 @@ class DefineController:
 	def __init__(self, field, defenderarmy):
 
 		# Store all button definitions, including field selection area
-		self.buttons = DefineButtonLibrary(field, defenderarmy)
+		self.buttons = ButtonLibrary.createlibrary(field, defenderarmy)
 
 		# Specifies whether the game should "run" - enemies walk and defenders walk/combat, in this cycle
 		self.runstate = True
