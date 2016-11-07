@@ -1,6 +1,6 @@
-from fieldconfig_subcomponent import DefineFieldConfiguration
-from ..common_components import Vector
-from ..common_components import Scale
+from fieldconfig_subcomponent import fieldconfig_module as FieldConfiguration
+from ..common_components.vector_datatype import vector_module as Vector
+from ..common_components.scale_datatype import scale_module as Scale
 
 
 
@@ -14,7 +14,7 @@ class DefineField:
 	def __init__(self):
 
 		# Gets the field layout, from which the board and enemy path are built
-		layoutplan = DefineFieldConfiguration()
+		layoutplan = FieldConfiguration.createfieldconfig()
 
 		# Size of the field in blocks - units that determine granularity of defender base positioning
 		# and actor size
