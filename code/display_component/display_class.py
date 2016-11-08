@@ -36,7 +36,8 @@ class DefineDisplay:
 																								field.getsize().gety())
 
 		# Stores the list of buttons to process
-		self.buttonlist = control.buttons.getbuttonlist()
+		self.buttonlist = control.getbuttoncollection("")
+		self.buttonlist.remove("Field")
 
 
 
@@ -122,10 +123,11 @@ class DefineDisplay:
 	def paintbuttons(self, control):
 
 		for buttonname in self.buttonlist:
-			buttonstate = control.buttons.getbuttonstate(buttonname)
+			buttonobject = control.getbuttonobject(buttonname)
+			buttonstate = buttonobject.getstate()
 
 			if buttonstate != "Hidden":
-				buttonlocation = control.buttons.getbuttonlocation(buttonname)
+				buttonlocation = buttonobject.getposition()
 				self.display.drawimage(buttonname, buttonlocation)
 
 				if buttonstate == "Disabled":
@@ -144,9 +146,9 @@ class DefineDisplay:
 	def erasebuttons(self, control):
 
 		for buttonname in self.buttonlist:
-			if control.buttons.getbuttonstate(buttonname) != "Hidden":
-				self.display.drawrectangle(control.buttons.getbuttonlocation(buttonname),
-															control.buttons.getbuttonsize(buttonname), "Black", "", 0)
+			buttonobject = control.getbuttonobject(buttonname)
+			if buttonobject.getstate() != "Hidden":
+				self.display.drawrectangle(buttonobject.getposition(), buttonobject.getdimensions(), "Black", "", 0)
 
 
 
