@@ -21,7 +21,7 @@ def runapplication():
 	field = Field.createfield()
 	enemyarmy = EnemyArmy.createarmy()
 	defenderarmy = DefenderArmy.createarmy(field)
-	controls = Controller.createcontroller(field, defenderarmy)
+	controls = Controller.createcontroller(field)
 	display = Display.createdisplay(field, controls)
 	game = Game.creategame()
 
