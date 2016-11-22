@@ -48,7 +48,7 @@ def runapplication():
 
 		# If mouse cursor location on field has changed, and we are in selection mode,
 		# update the selection property on the field and defender army objects
-		if controls.shouldfieldselectionbeupdated() == True:
+		if controls.updatefieldselection(field) == True:
 
 			# Update field selection data
 			field.updateselection(controls)
@@ -57,7 +57,7 @@ def runapplication():
 			defenderarmy.updateselection(controls)
 
 			# Update control selection data
-			controls.updateselection(field, defenderarmy)
+			controls.updateselectiontype(field, defenderarmy)
 
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 		# User tries to add or upgrade a defender to the game   #
@@ -65,10 +65,10 @@ def runapplication():
 
 		# If the user has clicked on the field, put the game in the correct add or upgrade state
 		# (User states intention to add defender to specific field location or upgrade existing defender)
-		controls.invokeaddorupgradedefender(game, defenderarmy)
+		controls.invokemanagedefender(game, defenderarmy)
 
 		# If the user has added or upgraded a defender, update the defender army
-		if defenderarmy.addorupgradedefender(controls) == True:
+		if defenderarmy.managedefender(controls) == True:
 
 		# Add new defender footprint to the field, if a new defender was added to the army
 			field.adddefendertofield()
@@ -116,7 +116,7 @@ def runapplication():
 		if game.isgameover() == True:
 
 			# Reset game/control variables & Update all button states to reflect new wave plaque
-			controls.initialisegame()
+			controls.startnextlevel()
 
 			# Set wave to 0, will change to 1 next cycle
 			game.initialisegame()

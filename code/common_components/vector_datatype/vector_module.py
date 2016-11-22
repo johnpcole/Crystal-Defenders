@@ -9,7 +9,7 @@ from . import vector_class as VectorClass
 def createblank():
 
 	newvector = VectorClass.DefineVector()
-	newvector.setfromvalues(0, 0)
+	newvector.setfromvalues(-999, -999)
 	return newvector
 
 
