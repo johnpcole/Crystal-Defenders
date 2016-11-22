@@ -1,5 +1,6 @@
 from ...common_components.vector_datatype import vector_module as Vector
 from ...common_components.scale_datatype import scale_module as Scale
+from ...common_components.enumeration_datatype import enumeration_module as Enumeration
 
 
 
@@ -44,16 +45,16 @@ class DefineDefenderUnit:
 		self.strength = combatstrength
 
 		# Defender Type: Soldier, Archer, Wizard, Theif, Mage
-		self.defendertype = defendertype
+		self.defendertype = Enumeration.createenum(["Soldier", "Archer", "Wizard", "Theif"], defendertype)
 
 		# Ammo - If blank, contact combat type, if not blank, projectile combat type
-		self.ammotype = ammunition
+		self.ammotype = Enumeration.createenum(["None", "Magic", "Arrow"], ammunition)
 
 		# Direction of travel
 		self.direction = Vector.createorigin()
 
 		# Hit Type: Magical, Physical, Theif
-		self.realm = realm
+		self.realm = Enumeration.createenum(["Magical", "Physical", "Theif"], realm)
 
 		# Distance Odometer - For display purposes
 		self.odometerdistance = Scale.createfull(100)
@@ -432,7 +433,7 @@ class DefineDefenderUnit:
 
 	def getrealm(self):
 
-		return self.realm
+		return self.realm.displaycurrent()
 
 
 
@@ -452,7 +453,7 @@ class DefineDefenderUnit:
 
 	def gettype(self):
 
-		return self.defendertype
+		return self.defendertype.displaycurrent()
 
 
 
@@ -462,7 +463,7 @@ class DefineDefenderUnit:
 
 	def getcombatmethod(self):
 
-		if self.ammotype == "":
+		if self.ammotype.get("None") == True:
 			outcome = "Contact"
 		else:
 			outcome = "Projectile"
@@ -491,7 +492,7 @@ class DefineDefenderUnit:
 			frame = self.odometerdistance.getpartition(2)
 
 		# Return a composite string containing the name, compass label and frame number
-		return self.defendertype + " - " + compasslabel + str(frame)
+		return self.defendertype.displaycurrent() + " - " + compasslabel + str(frame)
 
 
 
@@ -527,7 +528,7 @@ class DefineDefenderUnit:
 	def getammodisplayframereference(self):
 
 		# For magic, frame depends on distance from defender base
-		if self.realm == "Magical":
+		if self.realm.get("Magical") == True:
 			# Return a composite string containing the name and frame number
 			suffix = str(Scale.partitionintobuckets(self.battleradius, 8, self.getdistancefrombase()) % 4)
 
@@ -536,7 +537,7 @@ class DefineDefenderUnit:
 			# Return a composite string containing the name and compass label
 			suffix = self.getcompassdirection()
 
-		return self.ammotype + " - " + suffix
+		return self.ammotype.displaycurrent() + " - " + suffix
 
 
 

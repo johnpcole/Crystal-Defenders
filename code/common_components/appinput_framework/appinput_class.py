@@ -147,7 +147,7 @@ class DefineApplicationInput:
 	def updatemouseposition(self, locationpair):
 
 		self.mouselocation = Vector.createfrompair(locationpair)
-		self.mousecurrentbutton = self.getcurrentmousebutton()
+		self.mousecurrentbutton = self.calculatecurrentmousebutton()
 
 
 
@@ -267,7 +267,7 @@ class DefineApplicationInput:
 	# But only if the button is NOT hidden
 	# -------------------------------------------------------------------
 
-	def getcurrentmousebutton(self):
+	def calculatecurrentmousebutton(self):
 
 		outcome = ""
 		checkcount = 0

@@ -38,18 +38,18 @@ class DefineDefenderArmy:
 	# be added to the field
 	# -------------------------------------------------------------------
 
-	def addorupgradedefender(self, controls):
+	def managedefender(self, controls):
 
 		outcome = False
 
-		if controls.getaddorupgradedefenderaction()[:3] == "Add":
+		if controls.getmanagedefenderaction()[:3] == "Add":
 			# Add new defender object to collection
 			self.adddefendertoarmy(controls)
 
 			# Set the outcome to true so the defender can also be added to the field
 			outcome = True
 
-		elif controls.getaddorupgradedefenderaction() == "Upgrade Defender":
+		elif controls.getmanagedefenderaction() == "Upgrade Defender":
 			# Upgrade the existing defender
 			self.upgradeexistingdefender()
 
