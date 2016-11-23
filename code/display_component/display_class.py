@@ -298,12 +298,14 @@ class DefineDisplay:
 		self.display.drawtext("Wave " + str(game.getwave()), Vector.createfromvalues(621, 52), "Left", "Yellow", "20")
 
 		# Crystals
-		self.display.drawimage("Crystal - " + self.getcrystalanimationframe(game), Vector.createfromvalues(621, 76))
+		self.display.drawimage("Crystal - " + DisplayFunction.getcrystalanimationframe(self.miscanimationclock, game),
+																					Vector.createfromvalues(621, 76))
 		self.display.drawtext(str(game.getcrystalcount()), Vector.createfromvalues(654, 82), "Left",
 																	DisplayFunction.getcrystalcountcolour(game), "20")
 
 		# Coins
-		self.display.drawimage("Coin - " + self.getcoinanimationframe(game), Vector.createfromvalues(621, 106))
+		self.display.drawimage("Coin - " + DisplayFunction.getcoinanimationframe(self.miscanimationclock, game),
+																					Vector.createfromvalues(621, 106))
 		self.display.drawtext(str(game.getcoincount()), Vector.createfromvalues(654, 112), "Left",
 																	DisplayFunction.getcoincountcolour(game), "20")
 
@@ -329,8 +331,9 @@ class DefineDisplay:
 			self.display.drawimage("Plaque", Vector.createfromvalues(203, 133))
 			self.display.drawtext("Next Wave!", Vector.createfromvalues(303, 150), "Centre", "Yellow", "20")
 			self.display.drawcircle(Vector.createfromvalues(303, 230), 46, "Dirty Purple", "", 0)
-			self.display.drawimage(enemyarmy.getname() + " - S" + self.getplaqueanimationframe(),
-																					Vector.createfromvalues(271, 199))
+			self.display.drawimage(enemyarmy.getname() + " - S" +
+													DisplayFunction.getplaqueanimationframe(self.miscanimationclock),
+													Vector.createfromvalues(271, 199))
 			self.display.drawtext(enemyarmy.getname(), Vector.createfromvalues(303, 295), "Centre", "Yellow", "20")
 			self.display.drawtext(enemyarmy.getinitialhealth(), Vector.createfromvalues(303, 325), "Centre", "Yellow",
 																												"20")
@@ -410,45 +413,4 @@ class DefineDisplay:
 	# ==========================================================================================
 	# Get Information
 	# ==========================================================================================
-
-
-
-	# -------------------------------------------------------------------
-	# Returns the plaque animation frame, either 1 or 2 AS A STRING
-	# -------------------------------------------------------------------
-
-	def getplaqueanimationframe(self):
-
-		# Return modulo so that half the time the clock returns 1, the other half 2
-		return str(1 + (self.miscanimationclock.getpartition(10) % 2))
-
-
-
-	# -------------------------------------------------------------------
-	# Returns the coin animation frame, 0-9 AS A STRING
-	# -------------------------------------------------------------------
-
-	def getcoinanimationframe(self, game):
-
-		if game.getcoingainstatus() == True:
-			outcome = "10"
-		else:
-			outcome = str(10 - min(10, self.miscanimationclock.getpartition(200)))
-
-		return outcome
-
-
-
-	# -------------------------------------------------------------------
-	# Returns the crystal animation frame, 0-7 AS A STRING
-	# -------------------------------------------------------------------
-
-	def getcrystalanimationframe(self, game):
-
-		if game.getcrystallossstatus() == True:
-			outcome = "8"
-		else:
-			outcome = str(min(7, 50 - self.miscanimationclock.getpartition(50)))
-
-		return outcome
 

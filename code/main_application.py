@@ -41,7 +41,7 @@ def runapplication():
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 		# Process any input events (mouse clicks, mouse moves)
-		controls.processinput(field)
+		controls.processinput()
 
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 		# User moves mouse over field or clicks field           #

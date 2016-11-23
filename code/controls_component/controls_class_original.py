@@ -86,10 +86,7 @@ class DefineController:
 	# Returns number of coins to spend, for any costly actions performed
 	# -------------------------------------------------------------------
 
-	def processinput(self, field):
-
-		# Default the current cycle to NOT attempt to add/upgrade a defender to the field
-		#self.managedefenderaction.set("None")
+	def processinput(self):
 
 		# Loop over all events logged in this cycle and update all mouse properties
 		self.inputobject.processinputs()
@@ -106,9 +103,7 @@ class DefineController:
 					if clickedbutton == "Start Wave":
 						self.playnextlevel()
 
-					# If Fast button is pressed, set game state to run in fast mode
-					# If Slow button is pressed, set game state to run in slow mode
-					# If Stop button is pressed, set game state to paused
+					# If Fast/Slow/Stop button is pressed, set game state
 					elif clickedbutton[:8] == "Speed - ":
 						self.setgamespeed(clickedbutton[8:])
 
@@ -190,7 +185,7 @@ class DefineController:
 					self.inputobject.setareastate("Add - " + defendertype, "Enabled")
 
 		# Upgrade Defender Buttons
-		elif self.fieldhovermode.get("Upgrade"):
+		elif self.fieldhovermode.get("Upgrade") == True:
 			if defenderarmy.getdefenderupgradecost() > game.getcoincount():
 				self.inputobject.setareastate("Upgrade Defender", "Disabled")
 			else:
