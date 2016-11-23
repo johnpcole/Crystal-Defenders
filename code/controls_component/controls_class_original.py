@@ -30,16 +30,6 @@ class DefineController:
 		# Specifies whether the game is "between waves" mode
 		self.betweenwavesmode = False
 
-		# Specifies whether the field or add/upgrade defender buttons have been clicked in this cycle
-		self.managedefenderaction = Enumeration.createenum(["None", "Select Field Location", "Upgrade Defender",
-															"Add Soldier", "Add Archer", "Add Wizard"], "None")
-
-		# Specifies whether the game is in "select location", "add defender" or "upgrade defender" mode
-		self.managedefendermode = Enumeration.createenum(["None", "Select", "Add", "Upgrade"], "None")
-
-		# Specifies what would happen if the user clicked at the current field hover location
-		self.managedefenderavailability = Enumeration.createenum(["Disabled", "Add", "Upgrade"], "Disabled")
-
 		# Initialise game
 		self.startnextlevel()
 
@@ -50,11 +40,16 @@ class DefineController:
 		# Granularised hover location of the mouse on the field
 		self.fieldhoverlocation = Vector.createblank()
 
+		# Specifies what would happen if the user clicked at the current field hover location
+		self.fieldhovermode = Enumeration.createenum(["Disabled", "Add", "Upgrade", "Unknown"], "Disabled")
+
+		# Specifies what the user has done this cycle
+		self.useraction = Enumeration.createenum(["None", "Click Field", "Upgrade Defender",
+														"Add - Soldier", "Add - Archer", "Add - Wizard"], "None")
+
 
 
 	def setupbuttons(self, field):
-
-#----------------------------------------------------------------------------------------------------------
 
 		fieldsize = field.getsize()
 		self.area = {}
@@ -63,13 +58,11 @@ class DefineController:
 		self.definebutton("Speed - Slow",   625 + 40, 400, 30, 30, ["Speed", "Non-Stop", "Non-Fast"])
 		self.definebutton("Speed - Fast",   625 + 80, 400, 30, 30, ["Speed", "Non-Slow", "Non-Stop"])
 		self.definebutton("Field",                 0,   0, fieldsize.getx(), fieldsize.gety(), [])
-		self.definebutton("Add - Soldier",       625, 450, 30, 30, ["Add-Defender"])
-		self.definebutton("Add - Archer",   625 + 40, 450, 30, 30, ["Add-Defender"])
-		self.definebutton("Add - Wizard",   625 + 80, 450, 30, 30, ["Add-Defender"])
-		self.definebutton("Cancel",        625 + 120, 450, 30, 30, ["Add-Defender", "Upgrade-Defender"])
-		self.definebutton("Upgrade Defender",    625, 450, 30, 30, ["Upgrade-Defender"])
-
-#----------------------------------------------------------------------------------------------------------
+		self.definebutton("Add - Soldier",       625, 450, 30, 30, ["Manage-Defender"])
+		self.definebutton("Add - Archer",   625 + 40, 450, 30, 30, ["Manage-Defender"])
+		self.definebutton("Add - Wizard",   625 + 80, 450, 30, 30, ["Manage-Defender"])
+		self.definebutton("Cancel",        625 + 120, 450, 30, 30, ["Manage-Defender"])
+		self.definebutton("Upgrade Defender",    625, 450, 30, 30, ["Manage-Defender"])
 
 
 
@@ -93,52 +86,13 @@ class DefineController:
 	# Returns number of coins to spend, for any costly actions performed
 	# -------------------------------------------------------------------
 
-	def processinput(self, field):
-
-		# Default the current cycle to NOT attempt to add/upgrade a defender to the field
-		self.managedefenderaction.set("None")
+	def processinput(self):
 
 		# Loop over all events logged in this cycle and update all mouse properties
 		self.inputobject.processinputs()
 
-		# If the user releases the mouse button, process click actions
-		coinstolose = self.processbuttonclicks()
-
-		# for event in GUI.event.get():
-		#
-		# 	# Set quit game status if user closes the application window
-		# 	if event.type == GUI.QUIT:
-		# 		self.quitstate = True
-		#
-		# 	# Only process if the user releases the mouse button, or moves the mouse cursor
-		# 	elif (event.type == GUI.MOUSEBUTTONUP) or (event.type == GUI.MOUSEMOTION):
-		#
-		# 		# Get pixel coordinates of mouse cursor, and button name of hover location (if any)
-		# 		self.updatecurrentmouselocation(GUI.mouse.get_pos())
-		#
-		# 		# Mouse Click only events
-		# 		if event.type == GUI.MOUSEBUTTONUP:
-		# 			coinstolose = self.processbuttonclicks()
-		#
-		# 		# Mouse Click OR Movement events, only apply when in field select mode
-		# 		if self.shouldfieldselectionbeupdated() == True:
-		# 			self.updatefieldselectionlocation(field)
-		#
-		# 	else:
-		# 		pass
-		# 	# print "Unknown Event"
-
-		return coinstolose
-
-
-
-	# -------------------------------------------------------------------
-	# Process button clicks, return any cost
-	# -------------------------------------------------------------------
-
-	def processbuttonclicks(self):
-
-		coinstolose = 0
+		# Default to no user action being specified
+		self.useraction.set("None")
 
 		if self.inputobject.getmouseaction() == True:
 			if self.inputobject.getmouseclickaction() == -1:
@@ -149,15 +103,13 @@ class DefineController:
 					if clickedbutton == "Start Wave":
 						self.playnextlevel()
 
-					# If Fast button is pressed, set game state to run in fast mode
-					# If Slow button is pressed, set game state to run in slow mode
-					# If Stop button is pressed, set game state to paused
+					# If Fast/Slow/Stop button is pressed, set game state
 					elif clickedbutton[:8] == "Speed - ":
 						self.setgamespeed(clickedbutton[8:])
 
 					# If Add Soldier/Archer button is pressed, complete the add defender action
 					elif (clickedbutton[:6] == "Add - ") or (clickedbutton == "Upgrade Defender"):
-						coinstolose = self.completemanagedefender()
+						self.useraction.set(clickedbutton)
 
 					# If Cancel Soldier/Archer button is pressed, cancel defender add state
 					elif clickedbutton == "Cancel":
@@ -165,9 +117,7 @@ class DefineController:
 
 					# If the field is clicked, invoke field click
 					elif clickedbutton == "Field":
-						self.clickfieldlocation()
-
-		return coinstolose
+						self.useraction.set("Click Field")
 
 
 
@@ -179,12 +129,12 @@ class DefineController:
 
 		if speedlabel == "Stop":
 			self.runstate = False
-			self.changefieldselectionmode("Enable")
+			self.inputobject.setareastate("Field", "Enabled")
 		elif speedlabel == "Disable":
 			self.inputobject.setareastate("Speed", "Disabled")
 		else:
 			self.runstate = True
-			self.changefieldselectionmode("Disable")
+			self.inputobject.setareastate("Field", "Hidden")
 			if speedlabel == "Fast":
 				self.gamefast = True
 			else:
@@ -203,25 +153,19 @@ class DefineController:
 
 	def invokemanagedefender(self, game, defenderarmy):
 
-		if self.managedefenderaction.get("Select Field Location") == True:
+		if self.useraction.get("Click Field") == True:
 
 			# If it's possible to add a defender, put the game into add defender mode
-			if (self.managedefenderavailability.get("Add") == True) or (self.managedefenderavailability.get("Upgrade") == True):
-
-				# Cancel Field selection mode
-				self.changefieldselectionmode("Disable")
+			if (self.fieldhovermode.get("Add") == True) or (self.fieldhovermode.get("Upgrade") == True):
 
 				# Disable play
 				self.setgamespeed("Disable")
 
-				# Put the game into upgrade or add mode
-				self.managedefendermode.set(self.managedefenderavailability.displaycurrent())
+				# Disable Field selection
+				self.inputobject.setareastate("Field", "Hidden")
 
 				# Update button states
-			# self.buttons.setadddefendergroup("Enable", userscoins) !!!!!!!
-					# OR
-			# self.buttons.setupgradecost(upgradecost) !!!!!!!!!!
-			# self.buttons.setupgradedefendergroup("Enable", usercoins) !!!!!!!!!!!!!
+				self.showmanagebuttons(game, defenderarmy)
 
 
 
@@ -230,17 +174,27 @@ class DefineController:
 	# by the user. Returns the cost of adding the defender
 	# -------------------------------------------------------------------
 
-	def completemanagedefender(self):
+	def showmanagebuttons(self, game, defenderarmy):
 
-		# Set "Add DefenderType" or "Upgrade Defender" outcome
-		self.managedefenderaction.set(self.inputobject.getcurrentmousearea())
+		# Add Defender Buttons
+		if self.fieldhovermode.get("Add") == True:
+			for defendertype in ["Soldier", "Archer", "Wizard", "Theif"]:
+				if defenderarmy.getnewdefendercost(defendertype) > game.getcoincount():
+					self.inputobject.setareastate("Add - " + defendertype, "Disabled")
+				else:
+					self.inputobject.setareastate("Add - " + defendertype, "Enabled")
 
-		# Cancel Add/Upgrade defender mode and update button states
-		self.cancelmanagedefender()
+		# Upgrade Defender Buttons
+		elif self.fieldhovermode.get("Upgrade") == True:
+			if defenderarmy.getdefenderupgradecost() > game.getcoincount():
+				self.inputobject.setareastate("Upgrade Defender", "Disabled")
+			else:
+				self.inputobject.setareastate("Upgrade Defender", "Enabled")
 
-		# Return the cost of adding the defender
-		#return self.buttons.getbuttoncost(self.currenthoverbutton) !!!!!!!
+		else:
+			x = 1/0
 
+		self.inputobject.setareastate("Cancel", "Enabled")
 
 
 
@@ -250,24 +204,14 @@ class DefineController:
 
 	def cancelmanagedefender(self):
 
-		# Clear add/upgrade mode
-		self.managedefendermode.set("None")
-
 		# Update button states
 		self.setgamespeed("Stop")
-		#self.buttons.setadddefendergroup("Hide", -999) !!!!!!!!!!!!!!!!!
-		#self.buttons.setupgradedefendergroup("Hide", -999) !!!!!!!!!!!!!
 
+		# Reset buttons to Hidden
+		self.inputobject.setareastate("Manage-Defender", "Hidden")
 
-
-	# -------------------------------------------------------------------
-	# Select field location to add or upgrade new defender
-	# -------------------------------------------------------------------
-
-	def clickfieldlocation(self):
-
-		# Set "User Selected point on Field" outcome
-		self.managedefenderaction.set("Select Field Location")
+		# Restores field selection mode
+		self.inputobject.setareastate("Field", "Enabled")
 
 
 
@@ -309,53 +253,14 @@ class DefineController:
 
 
 	# -------------------------------------------------------------------
-	# When user has is hovering, determine whether
-	# the hover should be add or upgrade defender
-	# -------------------------------------------------------------------
-
-	def updateselectiontype(self, field, defenderarmy):
-
-		# If it's possible to add a defender
-		if field.isselectionvalidtoadddefender() == True:
-			self.managedefenderavailability.set("Add")
-
-		# If the current selection properly overlaps an existing defender
-		elif defenderarmy.getselecteddefender() is not None:
-			self.managedefenderavailability.set("Upgrade")
-
-		# None mode
-		else:
-			self.managedefenderavailability.set("Disabled")
-
-
-
-	# -------------------------------------------------------------------
-	# In the correct mode, user should be able to hover and select
-	# on the game field
-	# -------------------------------------------------------------------
-
-	def changefieldselectionmode(self, modelabel):
-
-		# Turn on field button-area
-		self.inputobject.setareastate("Field", modelabel + "d")
-
-		# Set field selection mode
-		if modelabel == "Enable":
-			self.managedefendermode.set("Select")
-		else:
-			self.managedefendermode.set("None")
-
-
-
-	# -------------------------------------------------------------------
 	# Returns whether the field selection should be updated
 	# on the field and defender objects
 	# -------------------------------------------------------------------
 
-	def updatefieldselection(self, field):
+	def updatefieldselectionlocation(self, field):
 
-		# If the game is in select mode, and the user hasn't just clicked add/upgrade
-		if (self.managedefendermode.get("Select") == True) and (self.managedefenderaction.get("None") == True):
+		# If the field is enabled
+		if self.inputobject.getareastate("Field") == "Enabled":
 			outcome = True
 
 			# If mouse is in field area, set fieldblocklocation to be granularised pixel location
@@ -370,6 +275,28 @@ class DefineController:
 			outcome = False
 
 		return outcome
+
+
+
+	# -------------------------------------------------------------------
+	# When user has is hovering, determine whether
+	# the hover should be add or upgrade defender
+	# -------------------------------------------------------------------
+
+	def updatefieldselectionmode(self, field, defenderarmy):
+
+		# If it's possible to add a defender
+		if field.isselectionvalidtoadddefender() == True:
+			self.fieldhovermode.set("Add")
+
+		# If the current selection properly overlaps an existing defender
+		elif defenderarmy.getselecteddefender() is not None:
+			self.fieldhovermode.set("Upgrade")
+
+		# None mode
+		else:
+			self.fieldhovermode.set("Disabled")
+
 
 
 	# ==========================================================================================
@@ -448,7 +375,7 @@ class DefineController:
 
 	def getmanagedefenderaction(self):
 
-		return self.managedefenderaction.displaycurrent()
+		return self.useraction.displaycurrent()
 
 
 
@@ -459,40 +386,12 @@ class DefineController:
 
 	def getfieldselectionoverlay(self):
 
-		hoverlocation = self.inputobject.getmouselocation()
-		if hoverlocation.getx() < -1:
-			outcome = ""
+		if self.inputobject.getcurrentmousearea() == "Field":
+			outcome = self.fieldhovermode.displaycurrent()
 		else:
-			outcome = self.managedefenderavailability.displaycurrent()
+			outcome = ""
 
 		return outcome
-
-
-
-	# -------------------------------------------------------------------
-	# Returns what mode the mouse is in
-	# -------------------------------------------------------------------
-
-	def getcurrentaddorupgrademode(self):
-
-		return self.managedefendermode.displaycurrent()
-
-	#	# -------------------------------------------------------------------
-	#	# Returns what the outcome of pressing the
-	#	# current add or upgrade button would be
-	#	# -------------------------------------------------------------------
-	#
-	#	def getcurrenthoverdefenderbutton(self):
-	#
-	#		outcome = ""
-	#		if self.managedefendermode.get("Add") == True:
-	#			if self.currenthoverbutton[:3] == "Add":
-	#				outcome = self.currenthoverbutton
-	#		elif self.managedefendermode.get("Upgrade") == True:
-	#			if self.currenthoverbutton == "Upgrade Defender":
-	#				outcome = "Upgrade"
-	#
-	#		return outcome
 
 
 
@@ -537,9 +436,29 @@ class DefineController:
 
 
 	# -------------------------------------------------------------------
-	# Returns the actual button object for the specified button name
+	# Returns the button's state
 	# -------------------------------------------------------------------
 
-	def getbuttonobject(self, buttonname):
+	def getbuttonstate(self, buttonname):
 
-		return self.inputobject.getbuttonobject(buttonname)
+		return self.inputobject.getareastate(buttonname)
+
+
+
+	# -------------------------------------------------------------------
+	# Returns the button's position
+	# -------------------------------------------------------------------
+
+	def getbuttonposition(self, buttonname):
+		return self.inputobject.getareaposition(buttonname)
+
+
+
+	# -------------------------------------------------------------------
+	# Returns the button's size
+	# -------------------------------------------------------------------
+
+	def getbuttonsize(self, buttonname):
+
+		return self.inputobject.getareadimensions(buttonname)
+

@@ -41,14 +41,15 @@ def runapplication():
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 		# Process any input events (mouse clicks, mouse moves)
-		coinstolose = controls.processinput(field)
+		controls.processinput()
 
-		# Take coins out of user's account, if necessary for any actions performed
-		game.spendcoins(coinstolose)
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+		# User moves mouse over field or clicks field           #
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-		# If mouse cursor location on field has changed, and we are in selection mode,
-		# update the selection property on the field and defender army objects
-		if controls.updatefieldselection(field) == True:
+		# If the field is enabled, update the selection property on the field and defender army objects
+		# If we are in add/upgrade mode, we DONT want to start changing the current selection!!!
+		if controls.updatefieldselectionlocation(field) == True:
 
 			# Update field selection data
 			field.updateselection(controls)
@@ -57,21 +58,29 @@ def runapplication():
 			defenderarmy.updateselection(controls)
 
 			# Update control selection data
-			controls.updateselectiontype(field, defenderarmy)
+			controls.updatefieldselectionmode(field, defenderarmy)
+
+			# If the user has clicked on the field, put the game in the correct add or upgrade state
+			# (User states intention to add defender to specific field location or upgrade existing defender)
+			controls.invokemanagedefender(game, defenderarmy)
 
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-		# User tries to add or upgrade a defender to the game   #
+		# User completes add or upgrade a defender to the game  #
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
-		# If the user has clicked on the field, put the game in the correct add or upgrade state
-		# (User states intention to add defender to specific field location or upgrade existing defender)
-		controls.invokemanagedefender(game, defenderarmy)
 
 		# If the user has added or upgraded a defender, update the defender army
-		if defenderarmy.managedefender(controls) == True:
+		coinstolose = defenderarmy.managedefender(controls)
 
-		# Add new defender footprint to the field, if a new defender was added to the army
-			field.adddefendertofield()
+		if coinstolose > 0:
+
+			# Take coins out of user's account, if necessary for any actions performed
+			game.spendcoins(coinstolose)
+
+			# Reset add/upgrade defender mode
+			controls.cancelmanagedefender()
+
+			# Add new defender footprint to the field, if a new defender was added to the army
+			field.adddefendertofield(controls)
 
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 		# Process Defenders & Enemies, walking + combat #

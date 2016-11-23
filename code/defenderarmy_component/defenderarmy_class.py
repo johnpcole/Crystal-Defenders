@@ -40,18 +40,16 @@ class DefineDefenderArmy:
 
 	def managedefender(self, controls):
 
-		outcome = False
+		outcome = 0
 
 		if controls.getmanagedefenderaction()[:3] == "Add":
 			# Add new defender object to collection
-			self.adddefendertoarmy(controls)
+			outcome = self.adddefendertoarmy(controls)
 
-			# Set the outcome to true so the defender can also be added to the field
-			outcome = True
 
 		elif controls.getmanagedefenderaction() == "Upgrade Defender":
 			# Upgrade the existing defender
-			self.upgradeexistingdefender()
+			outcome = self.upgradeexistingdefender()
 
 		return outcome
 
@@ -72,6 +70,8 @@ class DefineDefenderArmy:
 		# Update the existing defender with the new stats
 		self.selecteddefender.updatestats(newlevel, newconfig.strength, newconfig.engageradius)
 
+		return newconfig.cost
+
 
 
 	# -------------------------------------------------------------------
@@ -81,7 +81,7 @@ class DefineDefenderArmy:
 	def adddefendertoarmy(self, controls):
 
 		# Retrieve the defender type requested by user, stored in the control object
-		newdefendertype = controls.getaddorupgradedefenderaction()[6:]
+		newdefendertype = controls.getmanagedefenderaction()[6:]
 
 		# Retrieve the standard configuration for a level 1 defender of the required type
 		config = self.configlibrary.getdefenderconfig(newdefendertype, 1)
@@ -91,6 +91,8 @@ class DefineDefenderArmy:
 												config.combatspeed, config.strength, config.engageradius,
 												newdefendertype, self.defendergroundsize, config.strikeradius,
 												config.collateralradius, config.realm, config.ammo))
+
+		return config.cost
 
 
 

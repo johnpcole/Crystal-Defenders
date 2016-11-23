@@ -67,10 +67,10 @@ class DefineDefenderConfiguration:
 
 	def setdata(self, fieldname, rawfieldvalue):
 
-		if rawfieldvalue == "None":
-			fieldvalue = ""
-		else:
-			fieldvalue = rawfieldvalue
+		#if rawfieldvalue == "None":
+		#	fieldvalue = ""
+		#else:
+		fieldvalue = rawfieldvalue
 	
 		if fieldname == "Defender Type":
 			self.defendertype = fieldvalue
