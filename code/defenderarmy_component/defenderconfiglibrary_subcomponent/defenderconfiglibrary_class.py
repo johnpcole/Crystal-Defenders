@@ -52,12 +52,9 @@ class DefineDefenderConfigurationLibrary:
 						newdefenderlevelconfig.setdata(fieldnametwo, fieldvaluetwo)
 
 					# Add this configuration if all values have been set
-					if newdefenderlevelconfig.validateconfig() == True:
-						self.defenderitem.append(newdefenderlevelconfig)
-					else:
-						print "Incomplete Defender Configuration"
-						x = 1/0
-						
+					assert newdefenderlevelconfig.validateconfig() == True, "Incomplete Defender Configuration"
+					self.defenderitem.append(newdefenderlevelconfig)
+
 				else:
 				
 					# Set the defender type specific data
