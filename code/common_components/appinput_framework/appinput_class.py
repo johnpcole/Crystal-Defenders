@@ -157,12 +157,17 @@ class DefineApplicationInput:
 
 	def setareastate(self, buttonname, newstate):
 
-		if buttonname in self.buttons:
-			self.buttons[buttonname].changestate(newstate)
-		else:
-			for individualbuttonname in self.buttons.keys():
-				self.buttons[individualbuttonname].changegroupstate(buttonname, newstate)
+		if newstate in ["Enabled", "Disabled", "Hidden"]:
 
+			if buttonname in self.buttons:
+				self.buttons[buttonname].changestate(newstate)
+			else:
+				for individualbuttonname in self.buttons.keys():
+					self.buttons[individualbuttonname].changegroupstate(buttonname, newstate)
+
+		else:
+
+			print "Invalid button state - ", newstate
 
 
 	# -------------------------------------------------------------------
@@ -315,5 +320,20 @@ class DefineApplicationInput:
 
 		if buttonname in self.buttons:
 			outcome = self.buttons[buttonname]
+
+		return outcome
+
+
+	# -------------------------------------------------------------------
+	# Get button state
+	# -------------------------------------------------------------------
+
+	def getareastate(self, buttonname):
+
+		outcome = ""
+		if buttonname in self.buttons:
+			outcome = self.buttons[buttonname].getstate()
+		else:
+			print "Invalid button name - ", buttonname
 
 		return outcome

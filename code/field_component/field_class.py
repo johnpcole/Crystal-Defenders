@@ -167,7 +167,7 @@ class DefineField:
 
 					# If three NESW blocks are not path, something has gone wrong
 					else:
-						x = 1/0
+						assert len(nonpathcount) == 0, "Field Path build failure"
 
 
 	# ==========================================================================================
@@ -204,10 +204,16 @@ class DefineField:
 	# Add a defender to the field (assumes terrain permits)
 	# -------------------------------------------------------------------
 
-	def adddefendertofield(self):
+	def adddefendertofield(self, controls):
 
-		# Only process if the selection is valid - It's not overlapping path or another defender
-		if self.isselectionvalidtoadddefender() == True:
+		# Only if the user has added a defender in this cycle
+		if controls.getmanagedefenderaction()[:3] == "Add":
+
+			# Only process if the selection is valid - It's not overlapping path or another defender
+			assertiontext = "Attempted to add a defender to field at invalid selection point"\
+													+ str(self.currentblockselection.getx()) + ", "\
+													+ str(self.currentblockselection.gety())
+			assert self.isselectionvalidtoadddefender() == True,  assertiontext
 
 			# Loops over all blocks that the new defender is based on
 			origin = self.currentblockselection
@@ -220,10 +226,6 @@ class DefineField:
 					# Set field block value to Defender
 					self.setgroundtype(block, "Defender")
 
-		else:
-			print "Attempted to add a defender to field at invalid selection point"
-			print self.currentblockselection.getx(), self.currentblockselection.gety()
-			x = 1/0
 
 
 

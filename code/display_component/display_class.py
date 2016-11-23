@@ -83,13 +83,13 @@ class DefineDisplay:
 			self.paintdefendersandenemies(defenderarmy, enemyarmy, field, control)
 			self.paintstats(game)
 			self.paintnewwaveplaque(enemyarmy, control)
-			self.paintaddorupgradedefenderplaque(control, defenderarmy)
+			#self.paintaddorupgradedefenderplaque(control, defenderarmy)
 			self.paintbuttons(control)
 			#
 			self.display.updatescreen()
 			#
 			self.erasebuttons(control)
-			self.eraseaddorupgradedefenderplaque(control)
+			#self.eraseaddorupgradedefenderplaque(control)
 			self.erasenewwaveplaque(control, field)
 			self.erasestats()
 			self.erasedefendersandenemies()

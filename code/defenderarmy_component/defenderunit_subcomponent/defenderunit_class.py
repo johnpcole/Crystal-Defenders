@@ -48,6 +48,7 @@ class DefineDefenderUnit:
 		self.defendertype = Enumeration.createenum(["Soldier", "Archer", "Wizard", "Theif"], defendertype)
 
 		# Ammo - If blank, contact combat type, if not blank, projectile combat type
+		print "<" + ammunition + ">"
 		self.ammotype = Enumeration.createenum(["None", "Magic", "Arrow"], ammunition)
 
 		# Direction of travel
