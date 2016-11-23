@@ -22,7 +22,7 @@ class DefineApplicationInput:
 		self.mouselocation = Vector.createfromvalues(-999, -999)
 
 		# The current button/area that the mouse location is positioned over
-		# regardless of mouse click state
+		# regardless of mouse click state - requires button to be enabled or disabled
 		self.mousecurrentbutton = ""
 
 		# Flag to indicate if rest of application needs to process changes
@@ -311,20 +311,6 @@ class DefineApplicationInput:
 
 
 	# -------------------------------------------------------------------
-	# Returns the actual button object for the specified button name
-	# -------------------------------------------------------------------
-
-	def getbuttonobject(self, buttonname):
-
-		outcome = None
-
-		if buttonname in self.buttons:
-			outcome = self.buttons[buttonname]
-
-		return outcome
-
-
-	# -------------------------------------------------------------------
 	# Get button state
 	# -------------------------------------------------------------------
 
@@ -337,3 +323,36 @@ class DefineApplicationInput:
 			print "Invalid button name - ", buttonname
 
 		return outcome
+
+
+
+	# -------------------------------------------------------------------
+	# Returns the position of the button
+	# -------------------------------------------------------------------
+
+	def getareaposition(self, buttonname):
+
+		outcome = ""
+		if buttonname in self.buttons:
+			outcome = self.buttons[buttonname].getposition()
+		else:
+			print "Invalid button name - ", buttonname
+
+		return outcome
+
+
+
+	# -------------------------------------------------------------------
+	# Returns the dimensions of the button
+	# -------------------------------------------------------------------
+
+	def getareadimensions(self, buttonname):
+
+		outcome = ""
+		if buttonname in self.buttons:
+			outcome = self.buttons[buttonname].getdimensions()
+		else:
+			print "Invalid button name - ", buttonname
+
+		return outcome
+

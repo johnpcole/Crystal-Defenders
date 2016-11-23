@@ -401,16 +401,6 @@ class DefineController:
 
 
 	# -------------------------------------------------------------------
-	# Returns what mode the mouse is in
-	# -------------------------------------------------------------------
-
-	#def getcurrentaddorupgrademode(self):
-
-	#	return "" #self.managedefendermode.displaycurrent()
-
-
-
-	# -------------------------------------------------------------------
 	# Return field selection display location
 	# -------------------------------------------------------------------
 
@@ -451,9 +441,29 @@ class DefineController:
 
 
 	# -------------------------------------------------------------------
-	# Returns the actual button object for the specified button name
+	# Returns the button's state
 	# -------------------------------------------------------------------
 
-	def getbuttonobject(self, buttonname):
+	def getbuttonstate(self, buttonname):
 
-		return self.inputobject.getbuttonobject(buttonname)
+		return self.inputobject.getareastate(buttonname)
+
+
+
+	# -------------------------------------------------------------------
+	# Returns the button's position
+	# -------------------------------------------------------------------
+
+	def getbuttonposition(self, buttonname):
+		return self.inputobject.getareaposition(buttonname)
+
+
+
+	# -------------------------------------------------------------------
+	# Returns the button's size
+	# -------------------------------------------------------------------
+
+	def getbuttonsize(self, buttonname):
+
+		return self.inputobject.getareadimensions(buttonname)
+
