@@ -355,8 +355,7 @@ class DefineController:
 	def updatefieldselection(self, field):
 
 		# If the game is in select mode, and the user hasn't just clicked add/upgrade
-		if (self.managedefendermode.get("Select") == True) and (
-												self.managedefenderaction.get("None") == True):
+		if (self.managedefendermode.get("Select") == True) and (self.managedefenderaction.get("None") == True):
 			outcome = True
 
 			# If mouse is in field area, set fieldblocklocation to be granularised pixel location
