@@ -31,7 +31,7 @@ class DefineDefenderConfigurationLibrary:
 			for configitem in rawconfigs:
 
 				# Extract the first data field name and the rest of the line
-				fieldname, fieldvalue = File.datapair(configitem)
+				fieldname, fieldvalue = File.extractdatapair(configitem)
 				
 				if fieldname == "Level":
 
@@ -40,13 +40,13 @@ class DefineDefenderConfigurationLibrary:
 					newdefenderlevelconfig.copypartialconfig(newdefendertypeconfig)
 
 					# Get the tabulated data
-					tabulatedlist = File.tabulateddata(configitem)
+					tabulatedlist = File.extracttabulateddata(configitem)
 					
 					# Loop over the tabulated pairs
 					for tabulateditem in tabulatedlist:
 
 						# Extract the nth data field name and the rest of the line
-						fieldnametwo, fieldvaluetwo = File.datapair(tabulateditem)
+						fieldnametwo, fieldvaluetwo = File.extractdatapair(tabulateditem)
 
 						# Set the defender level type specific data
 						newdefenderlevelconfig.setdata(fieldnametwo, fieldvaluetwo)

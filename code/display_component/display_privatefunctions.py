@@ -38,7 +38,7 @@ def getimagedata(filenameandpath):
 	rawdata = File.readfromdisk(filenameandpath)
 
 	for dataline in rawdata:
-		section = File.tabulateddata(dataline)
+		section = File.extracttabulateddata(dataline)
 		sectioncount = len(section)
 
 		if (sectioncount == 2) or (sectioncount == 3):
@@ -48,7 +48,7 @@ def getimagedata(filenameandpath):
 				imagename = prefix
 				outcome.append(subfolder + "\t" + imagename)
 			else:
-				iterations = File.commadata(section[2])
+				iterations = File.extractcommadata(section[2])
 				for iteration in iterations:
 					imagename = prefix + " - " + iteration
 					outcome.append(subfolder + "\t" + imagename)

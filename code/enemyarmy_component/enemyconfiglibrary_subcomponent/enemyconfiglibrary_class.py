@@ -26,13 +26,13 @@ class DefineEnemyConfigurationLibrary:
 			newenemyconfig = EnemyConfiguration.createconfig()
 
 			# Get the tabulated data
-			tabulatedlist = File.tabulateddata(configitem)
+			tabulatedlist = File.extracttabulateddata(configitem)
 			
 			# Loop over the tabulated pairs
 			for tabulateditem in tabulatedlist:
 			
 				# Extract the first data field name and the rest of the line
-				fieldname, fieldvalue = File.datapair(tabulateditem)
+				fieldname, fieldvalue = File.extractdatapair(tabulateditem)
 
 				# Set the defender level type specific data
 				newenemyconfig.setdata(fieldname, fieldvalue)
