@@ -9,7 +9,7 @@ from . import vector_class as VectorClass
 def createblank():
 
 	newvector = VectorClass.DefineVector()
-	newvector.setfromvalues(-999, -999)
+	newvector.setblank()
 	return newvector
 
 
@@ -21,7 +21,7 @@ def createblank():
 def createorigin():
 
 	newvector = VectorClass.DefineVector()
-	newvector.setfromvalues(0, 0)
+	newvector.setorigin()
 	return newvector
 
 
@@ -101,6 +101,8 @@ def subtract(first, second):
 def divide(first, second):
 
 	newvector = VectorClass.DefineVector()
+	assert second.getx() != 0, "Second Vector x value is zero - Cannot divide by zero"
+	assert second.gety() != 0, "Second Vector y value is zero - Cannot divide by zero"
 	newvector.setfromvalues(first.getx() / second.getx(), first.gety() / second.gety())
 	return newvector
 
@@ -121,7 +123,7 @@ def multiply(first, second):
 
 
 # ---------------------------------------------
-# Builds a Vector, "multiplying" two input vectors
+# Builds a scalar, "multiplying" two input vectors
 # Using formal dot product formula
 # ---------------------------------------------
 
