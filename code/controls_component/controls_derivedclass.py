@@ -314,7 +314,7 @@ class DefineController(Buttons.DefineButtons):
 
 	def getfieldselectionoverlay(self):
 
-		if self.inputobject.getcurrentmousearea() == "Field":
+		if self.fieldhoverlocation.getx() > -1:
 			outcome = self.fieldhovermode.displaycurrent()
 		else:
 			outcome = ""

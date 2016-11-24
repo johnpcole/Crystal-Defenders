@@ -176,16 +176,8 @@ class DefineDisplay:
 
 		displaymode = control.getfieldselectionoverlay()
 		if displaymode != "":
-			if displaymode == "Add":
-				imagename = "Highlight - Field Allowed"
-			elif displaymode == "Upgrade":
-				imagename = "Highlight - Defender Base"
-			elif displaymode == "Disabled":
-				imagename = "Highlight - Field Disallowed"
-			else:
-				print "Invalid Selection Image"
-				imagename = 1/0
-			self.actorlist.additem(imagename, control.getselectiondisplaylocation(),
+			self.actorlist.additem(DisplayFunction.getfieldoverlayimagename(displaymode),
+															control.getselectiondisplaylocation(),
 															control.getselectiondisplaysize(), 100000004, -999, field)
 
 

@@ -98,3 +98,22 @@ def getcrystalanimationframe(animationclock, game):
 
 	return outcome
 
+
+# -------------------------------------------------------------------
+# Returns the name of the field selection overlay image name
+# -------------------------------------------------------------------
+
+def getfieldoverlayimagename(displaymode):
+
+	if displaymode == "Add":
+		outcome = "Highlight - Field Allowed"
+	elif displaymode == "Upgrade":
+		outcome = "Highlight - Defender Base"
+	elif displaymode == "Disabled":
+		outcome = "Highlight - Field Disallowed"
+	else:
+		outcome = "???"
+		assert displaymode == "Add", "Invalid Field Selection Image"
+
+	return outcome
+
