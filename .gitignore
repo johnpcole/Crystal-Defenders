@@ -55,3 +55,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+<<<<<<< HEAD
+*.pyc
+=======
+>>>>>>> refs/remotes/origin/master
