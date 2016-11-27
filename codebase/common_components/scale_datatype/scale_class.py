@@ -67,3 +67,13 @@ class DefineScale:
 			outcome = False
 		return outcome
 
+
+	def getvalue(self):
+		return self.val
+	
+	
+	def setvalue(self, newvalue):
+		if (newvalue < 0) or (newvalue > self.maxval):
+			print "Cannot set scale to value outside range"
+		else:
+			self.val = int(newvalue)

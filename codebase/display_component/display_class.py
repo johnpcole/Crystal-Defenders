@@ -20,7 +20,7 @@ class DefineDisplay:
 
 		# Sets up pygame window related properties & methods and loads images, fonts & custom colours
 		self.display = AppDisplay.createwindow(self.displaysize, "Crystal Defenders")
-		self.display.addfont("20", "graphics/Font.ttf", 20)
+		self.display.addfont("20", "", "Font", 20)
 		self.setupcustomcolours()
 		self.setupimages()
 

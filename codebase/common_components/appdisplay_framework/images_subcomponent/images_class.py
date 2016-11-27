@@ -1,5 +1,5 @@
-from ...userinterface_framework import userinterface_module as GUI
-
+from ....common_components.userinterface_framework import userinterface_module as GUI
+from ....common_components.fileprocessing_framework import fileprocessing_module as File
 
 
 class DefineImageLibrary:
@@ -29,9 +29,9 @@ class DefineImageLibrary:
 	def add(self, imagelabel, subfolder, filename, transparency):
 
 		if subfolder is None:
-			fullpath = "graphics\\" + filename + ".png"
+			fullpath = File.concatenatepaths("graphics", filename + ".png")
 		else:
-			fullpath = "graphics\\" + subfolder + "\\" + filename + ".png"
+			fullpath = File.concatenatepaths(File.concatenatepaths("graphics", subfolder), filename + ".png")
 
 		if transparency == True:
 			try:

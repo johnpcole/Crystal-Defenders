@@ -66,9 +66,9 @@ class DefineApplicationWindow:
 	# Adds a font to the font library
 	# -------------------------------------------------------------------
 
-	def addfont(self, fontname, fontfile, fontsize):
+	def addfont(self, fontname, subfolder, fontfile, fontsize):
 
-		self.textgenerator.addfont(fontname, fontfile, fontsize)
+		self.textgenerator.addfont(fontname, subfolder, fontfile, fontsize)
 
 
 
