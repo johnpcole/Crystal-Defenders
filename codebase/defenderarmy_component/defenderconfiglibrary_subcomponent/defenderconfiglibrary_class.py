@@ -22,7 +22,7 @@ class DefineDefenderConfigurationLibrary:
 		for filename in ['Soldier', 'Archer', 'Wizard', 'Theif']:
 	
 			# Read in the data from a file into a simple string list
-			rawconfigs = File.readfromdisk("configs/Defender_" + filename + ".txt")
+			rawconfigs = File.readfromdisk(File.concatenatepaths("configs", "Defender_" + filename + ".txt"))
 			
 			# Create a new defender configuration object
 			newdefendertypeconfig = DefenderConfiguration.createconfig()

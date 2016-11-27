@@ -17,7 +17,7 @@ class DefineEnemyConfigurationLibrary:
 	def populatelibrary(self):
 
 		# Read in the data from a file into a simple string list
-		rawconfigs = File.readfromdisk("configs/Enemies.txt")
+		rawconfigs = File.readfromdisk(File.concatenatepaths("configs", "Enemies.txt"))
 		
 		# Loop over all lines of data
 		for configitem in rawconfigs:

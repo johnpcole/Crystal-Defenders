@@ -213,7 +213,7 @@ class DefineField:
 			assertiontext = "Attempted to add a defender to field at invalid selection point"\
 													+ str(self.currentblockselection.getx()) + ", "\
 													+ str(self.currentblockselection.gety())
-			assert self.isselectionvalidtoadddefender() == True,  assertiontext
+			assert self.isselectionvalidtoadddefender() == True, assertiontext
 
 			# Loops over all blocks that the new defender is based on
 			origin = self.currentblockselection

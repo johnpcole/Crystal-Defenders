@@ -31,7 +31,7 @@ class DefineFieldConfiguration:
 
 	def readlayoutfromdisk(self):
 
-		templayout = File.readfromdisk("configs/Field.txt")
+		templayout = File.readfromdisk(File.concatenatepaths("configs", "Field.txt"))
 		outcome = []
 
 		for templine in templayout:
