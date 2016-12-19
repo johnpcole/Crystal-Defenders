@@ -18,6 +18,9 @@ class DefineButtons:
 		# Sets up the buttons
 		self.setupbuttons(field)
 
+		# Manage Defender Overlay position
+		self.managedefenderoverlayposition = Vector.createblank()
+
 
 
 	def setupbuttons(self, field):
@@ -48,6 +51,16 @@ class DefineButtons:
 	# ==========================================================================================
 	# Perform Actions
 	# ==========================================================================================
+
+
+
+	# -------------------------------------------------------------------
+	# Update Manage Defender Overlay fauxbutton
+	# -------------------------------------------------------------------
+
+	def updatemanagedefenderoverlaylocation(self, newlocation):
+
+		self.managedefenderoverlayposition.setfromvector(newlocation)
 
 
 
@@ -146,4 +159,14 @@ class DefineButtons:
 	def getbuttonsize(self, buttonname):
 
 		return self.inputobject.getareadimensions(buttonname)
+
+
+
+	# -------------------------------------------------------------------
+	# Returns the manage defender overlay position
+	# -------------------------------------------------------------------
+
+	def getmanagedefenderoverlayposition(self):
+
+		return self.managedefenderoverlayposition
 

@@ -83,7 +83,7 @@ class DefineDisplay:
 			self.paintdefendersandenemies(defenderarmy, enemyarmy, field, control)
 			self.paintstats(game)
 			self.paintnewwaveplaque(enemyarmy, control)
-			#self.paintaddorupgradedefenderplaque(control, defenderarmy)
+			self.paintmanagedefenderplaque(control, defenderarmy)
 			self.paintbuttons(control)
 			#
 			self.display.updatescreen()
@@ -344,16 +344,17 @@ class DefineDisplay:
 
 
 	# -------------------------------------------------------------------
-	# Displays add or upgrade defender plaque
+	# Displays manage defender plaque
 	# -------------------------------------------------------------------
 
-	def paintaddorupgradedefenderplaque(self, control, defenderarmy):
+	def paintmanagedefenderplaque(self, control, defenderarmy):
 
-		if control.getcurrentaddorupgrademode() == "Upgrade":
-			self.display.drawimage("Plaque", Vector.createfromvalues(600, 200))
-			self.display.drawimage("Coin - 0", Vector.createfromvalues(621, 210))
-			self.display.drawtext(str(defenderarmy.getdefenderupgradecost()), Vector.createfromvalues(654, 210),
-																								"Left", "Yellow", "20")
+		if control.getbuttonstate("Cancel") != "Hidden":
+
+			self.display.drawimage("Manage", control.getmanagedefenderoverlayposition())
+			#self.display.drawimage("Coin - 0", Vector.createfromvalues(621, 210))
+			#self.display.drawtext(str(defenderarmy.getdefenderupgradecost()), Vector.createfromvalues(654, 210),
+			#																					"Left", "Yellow", "20")
 
 #			self.draw.text("Next Wave!", Vector.createfromvalues(303, 150), "Centre", "Yellow")
 #			self.draw.circle(Vector.createfromvalues(303, 230), 46, "Dirty Purple")
@@ -369,7 +370,7 @@ class DefineDisplay:
 
 	def eraseaddorupgradedefenderplaque(self, control):
 
-		if control.getcurrentaddorupgrademode() == "Upgrade":
+		if control.getbuttonstate("Cancel") != "Hidden":
 			self.display.drawbox(Vector.createfromvalues(600, 200), Vector.createfromvalues(100, 100), "Black")
 
 

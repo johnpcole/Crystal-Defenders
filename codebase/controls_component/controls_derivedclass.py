@@ -12,7 +12,7 @@ class DefineController(Buttons.DefineButtons):
 
 	def __init__(self, field):
 
-		# Get the input controller and configure buttons
+		# Get the input controller and configure buttons using baseclass method
 		Buttons.DefineButtons.__init__(self, field)
 
 		# Specifies whether the game should "run" - enemies walk and defenders walk/combat, in this cycle
@@ -209,6 +209,7 @@ class DefineController(Buttons.DefineButtons):
 			# If mouse is in field area, set fieldblocklocation to be granularised pixel location
 			if self.inputobject.getcurrentmousearea() == "Field":
 				self.fieldhoverlocation = field.calculatefieldselectionlocation(self.inputobject.getmouselocation())
+				self.updatemanagedefenderoverlaylocation(field.calculatefieldselectionquadrant(self.fieldhoverlocation))
 
 			# If mouse is outside field area, set fieldhoverlocation to be dummy off field location
 			else:

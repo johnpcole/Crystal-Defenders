@@ -1,1 +1,0 @@
-from actoreraselist_class import DefineEraseBlock

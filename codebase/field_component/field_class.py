@@ -541,3 +541,32 @@ class DefineField:
 		return outcome
 
 
+
+	# -------------------------------------------------------------------
+	# Determines which direction the manage defender popup should be
+	# -------------------------------------------------------------------
+
+	def calculatefieldselectionquadrant(self, mouseposition):
+
+		# Update quadrant value with dummy location if selection is off the field
+		outcome = Vector.createblank()
+
+		# Only process if the mouse cursor is on the field
+		if Vector.ispointinarea(mouseposition, Vector.createorigin(), self.pixelsize) == True:
+
+			# Determing which quadrant we're in
+			selectionquadrant = Vector.createblank()
+			selectionquadrant.sety(Scale.partitionintobuckets(self.pixelsize.gety(), 3, mouseposition.gety()))
+			if selectionquadrant.gety() == 1:
+				selectionquadrant.setx(Scale.partitionintobuckets(self.pixelsize.getx(), 2, mouseposition.getx()))
+				if selectionquadrant.getx() == 1:
+					selectionquadrant.setx(2)
+			else:
+				selectionquadrant.setx(Scale.partitionintobuckets(self.pixelsize.getx(), 3, mouseposition.getx()))
+
+			outcome = Vector.add(Vector.createfromvalues(40, 40),
+														Vector.add(mouseposition, selectionquadrant.getscaled(-125)))
+
+		return outcome
+
+
