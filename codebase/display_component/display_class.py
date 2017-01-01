@@ -351,12 +351,20 @@ class DefineDisplay:
 
 		if control.getbuttonstate("Cancel") != "Hidden":
 
-			self.display.drawimage("Manage", control.getmanagedefenderoverlayposition())
+			overlayposition = control.getmanagedefenderoverlayposition()
+			overlaytitle = control.getfieldselectionoverlay() + " Defender"
+
+			self.display.drawimage("Manage", overlayposition)
+			self.display.drawtext(overlaytitle, Vector.add(overlayposition, Vector.createfromvalues(100, 17)),
+																							"Centre", "Yellow", "20")
+
+
+
+
 			#self.display.drawimage("Coin - 0", Vector.createfromvalues(621, 210))
 			#self.display.drawtext(str(defenderarmy.getdefenderupgradecost()), Vector.createfromvalues(654, 210),
 			#																					"Left", "Yellow", "20")
 
-#			self.draw.text("Next Wave!", Vector.createfromvalues(303, 150), "Centre", "Yellow")
 #			self.draw.circle(Vector.createfromvalues(303, 230), 46, "Dirty Purple")
 #			self.draw.image(enemyarmy.getname() + " - S" + self.getplaqueanimationframe(), Vector.createfromvalues(271, 199))
 #			self.draw.text(enemyarmy.getname(), Vector.createfromvalues(303, 295), "Centre", "Yellow")
