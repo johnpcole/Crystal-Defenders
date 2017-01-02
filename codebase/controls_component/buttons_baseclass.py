@@ -16,6 +16,7 @@ class DefineButtons:
 		self.inputobject = AppInput.createappinput()
 
 		# Sets up the buttons
+		self.area = {}
 		self.setupbuttons(field)
 
 		# Manage Defender Overlay position
@@ -26,7 +27,6 @@ class DefineButtons:
 	def setupbuttons(self, field):
 
 		fieldsize = field.getsize()
-		self.area = {}
 		self.definebutton("Start Wave",          287, 380, 30, 30, [])
 		self.definebutton("Speed - Stop",        625, 400, 30, 30, ["Speed", "Non-Slow", "Non-Fast"])
 		self.definebutton("Speed - Slow",   625 + 40, 400, 30, 30, ["Speed", "Non-Stop", "Non-Fast"])
@@ -42,7 +42,8 @@ class DefineButtons:
 
 	def definebutton(self, buttonname, along, down, width, height, groupmembership):
 
-		self.inputobject.createarea(buttonname, Vector.createfromvalues(along, down), Vector.createfromvalues(width, height), groupmembership)
+		self.inputobject.createarea(buttonname, Vector.createfromvalues(along, down),
+															Vector.createfromvalues(width, height), groupmembership)
 
 
 
@@ -70,35 +71,59 @@ class DefineButtons:
 
 	def updatemanagedefenderbuttons(self, managemode, game, defenderarmy):
 
-		# Add Defender Buttons
 		if managemode == "Add":
-			for defendertype in ["Soldier", "Archer", "Wizard", "Theif"]:
-				if defenderarmy.getnewdefendercost(defendertype) > game.getcoincount():
-					self.inputobject.setareastate("Add - " + defendertype, "Disabled")
-				else:
-					self.inputobject.setareastate("Add - " + defendertype, "Enabled")
-
-		# Upgrade Defender Buttons
+			buttonlist = ["Soldier", "Archer", "Wizard", "Cancel"]
 		elif managemode == "Upgrade":
-			if defenderarmy.getdefenderupgradecost() > game.getcoincount():
-				self.inputobject.setareastate("Upgrade Defender", "Disabled")
-			else:
-				self.inputobject.setareastate("Upgrade Defender", "Enabled")
-
+			buttonlist = ["Upgrade", "Cancel"]
 		else:
+			buttonlist = ["Cancel"]
 			assert managemode == "Upgrade", "Unrecognised field-hover-mode"
 
-		self.inputobject.setareastate("Cancel", "Enabled")
+		buttonoffset = -30
+
+		for buttontype in buttonlist:
+
+			if buttontype == "Cancel":
+				buttonname = buttontype
+				buttoncost = -999
+			elif buttontype == "Upgrade":
+				buttonname = "Upgrade Defender"
+				buttoncost = defenderarmy.getdefenderupgradecost()
+			else:
+				buttonname = "Add - " + buttontype
+				buttoncost = defenderarmy.getnewdefendercost(buttontype)
+
+			buttonoffset = buttonoffset + 40
+			self.updatemanagebuttonlocation(buttonname, buttonoffset)
+
+			if buttoncost > game.getcoincount():
+				newstate = "Disabled"
+			else:
+				newstate = "Enabled"
+			self.inputobject.setareastate(buttonname, newstate)
+
 
 
 	# -------------------------------------------------------------------
-	# Update buttons
+	# Update button states
 	# -------------------------------------------------------------------
 
 	def updatebutton(self, buttonname, buttonstate):
 
 		self.inputobject.setareastate(buttonname, buttonstate)
 
+
+
+	# -------------------------------------------------------------------
+	# Update button positions
+	# -------------------------------------------------------------------
+
+	def updatemanagebuttonlocation(self, buttonname, offsetvalue):
+
+		newbuttonlocation = Vector.createfromvalues(self.managedefenderoverlayposition.getx() + offsetvalue,
+													self.managedefenderoverlayposition.gety() + 160)
+		self.inputobject.setareadimensions(buttonname, newbuttonlocation,
+																		self.inputobject.getareadimensions(buttonname))
 
 
 

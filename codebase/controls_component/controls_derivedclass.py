@@ -223,7 +223,7 @@ class DefineController(Buttons.DefineButtons):
 
 
 	# -------------------------------------------------------------------
-	# When user has is hovering, determine whether
+	# When user is hovering on the field, determine whether
 	# the hover should be add or upgrade defender
 	# -------------------------------------------------------------------
 
