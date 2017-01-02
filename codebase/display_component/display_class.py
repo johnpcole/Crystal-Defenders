@@ -89,7 +89,7 @@ class DefineDisplay:
 			self.display.updatescreen()
 			#
 			self.erasebuttons(control)
-			#self.eraseaddorupgradedefenderplaque(control)
+			self.erasemanagedefenderplaque(control, field)
 			self.erasenewwaveplaque(control, field)
 			self.erasestats()
 			self.erasedefendersandenemies()
@@ -241,21 +241,11 @@ class DefineDisplay:
 	def erasedefendersandenemies(self):
 
 		# Erase from field
-		self.eraseactors()
+		for block in self.actorlist.blocks:
+			self.display.drawimage(block.blockname, block.coordinates)
 
 		# Clear list of defenders & enemies
 		self.actorlist.clearlists()
-
-
-
-	# -------------------------------------------------------------------
-	# Overwrites defender/ammo/enemy sprite overlays with background
-	# -------------------------------------------------------------------
-
-	def eraseactors(self):
-
-		for block in self.actorlist.blocks:
-			self.display.drawimage(block.blockname, block.coordinates)
 
 
 
@@ -320,15 +310,17 @@ class DefineDisplay:
 	def paintnewwaveplaque(self, enemyarmy, control):
 
 		if control.getbetweenwavestate() == True:
-			self.display.drawimage("Plaque", Vector.createfromvalues(203, 133))
-			self.display.drawtext("Next Wave!", Vector.createfromvalues(303, 150), "Centre", "Yellow", "20")
-			self.display.drawcircle(Vector.createfromvalues(303, 230), 46, "Dirty Purple", "", 0)
+			self.display.drawimage("Plaque", DisplayFunction.getwaveplaqueposition(0, 0))
+			self.display.drawtext("Next Wave!", DisplayFunction.getwaveplaqueposition(100, 17),
+																							"Centre", "Yellow", "20")
+			self.display.drawcircle(DisplayFunction.getwaveplaqueposition(100, 97), 46, "Dirty Purple", "", 0)
 			self.display.drawimage(enemyarmy.getname() + " - S" +
 													DisplayFunction.getplaqueanimationframe(self.miscanimationclock),
-													Vector.createfromvalues(271, 199))
-			self.display.drawtext(enemyarmy.getname(), Vector.createfromvalues(303, 295), "Centre", "Yellow", "20")
-			self.display.drawtext(enemyarmy.getinitialhealth(), Vector.createfromvalues(303, 325), "Centre", "Yellow",
-																												"20")
+													DisplayFunction.getwaveplaqueposition(68, 66))
+			self.display.drawtext(enemyarmy.getname(), DisplayFunction.getwaveplaqueposition(100, 162),
+																							"Centre", "Yellow", "20")
+			self.display.drawtext(enemyarmy.getinitialhealth(), DisplayFunction.getwaveplaqueposition(100, 192),
+																							"Centre", "Yellow", "20")
 
 
 
@@ -339,7 +331,7 @@ class DefineDisplay:
 	def erasenewwaveplaque(self, control, field):
 
 		if control.getbetweenwavestate() == True:
-			self.erase(Vector.createfromvalues(203, 133), Vector.createfromvalues(210, 310), field)
+			self.erase(DisplayFunction.getwaveplaqueposition(0, 0), Vector.createfromvalues(210, 310), field)
 
 
 
@@ -354,8 +346,8 @@ class DefineDisplay:
 			overlayposition = control.getmanagedefenderoverlayposition()
 			overlaytitle = control.getfieldselectionoverlay() + " Defender"
 
-			self.display.drawimage("Manage", overlayposition)
-			self.display.drawtext(overlaytitle, Vector.add(overlayposition, Vector.createfromvalues(100, 17)),
+			self.display.drawimage("Manage", DisplayFunction.getdefenderplaqueposition(overlayposition, 0, 0))
+			self.display.drawtext(overlaytitle, DisplayFunction.getdefenderplaqueposition(overlayposition, 100, 17),
 																							"Centre", "Yellow", "20")
 
 
@@ -376,10 +368,14 @@ class DefineDisplay:
 	# Erases the add or upgrade defender plaque
 	# -------------------------------------------------------------------
 
-	def eraseaddorupgradedefenderplaque(self, control):
+	def erasemanagedefenderplaque(self, control, field):
 
 		if control.getbuttonstate("Cancel") != "Hidden":
-			self.display.drawbox(Vector.createfromvalues(600, 200), Vector.createfromvalues(100, 100), "Black")
+
+			overlayposition = control.getmanagedefenderoverlayposition()
+
+			self.erase(DisplayFunction.getdefenderplaqueposition(overlayposition, 0, 0),
+																		Vector.createfromvalues(210, 210), field)
 
 
 

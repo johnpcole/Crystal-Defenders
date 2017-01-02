@@ -1,4 +1,5 @@
 from ..common_components.fileprocessing_framework import fileprocessing_module as File
+from ..common_components.vector_datatype import vector_module as Vector
 
 # -------------------------------------------------------------------
 # Returns the colour of text for crystal count
@@ -117,3 +118,22 @@ def getfieldoverlayimagename(displaymode):
 
 	return outcome
 
+
+
+# -------------------------------------------------------------------
+# Returns the location of an item within the manage defender plaque
+# -------------------------------------------------------------------
+
+def getdefenderplaqueposition(corner, xoffset, yoffset):
+
+	return Vector.createfromvalues(corner.getx() + xoffset, corner.gety() + yoffset)
+
+
+
+# -------------------------------------------------------------------
+# Returns the location of an item within the next wave plaque
+# -------------------------------------------------------------------
+
+def getwaveplaqueposition(xoffset, yoffset):
+
+	return Vector.createfromvalues(xoffset + 203, yoffset + 133)
