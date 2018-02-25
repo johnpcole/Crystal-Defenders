@@ -1,4 +1,5 @@
 import os as OperatingSystem
+import shutil as FileSystem
 
 
 # ---------------------------------------------
@@ -175,5 +176,57 @@ def writetodisk(filename, outputlist):
 
 
 
+# ---------------------------------------------
+# Copies a file from source to destination
+# ---------------------------------------------
+
+def copyfile(fullsourcepath, fulldestinationpath):
+
+	outcome = True
+
+	try:
+		FileSystem.copy2(fullsourcepath, fulldestinationpath)
+
+	except:
+		print "Cannot copy file - ", fullsourcepath, fulldestinationpath
+		outcome = False
+
+	return outcome
 
 
+
+# ---------------------------------------------
+# Makes a folder
+# ---------------------------------------------
+
+def makefolder(fullpath):
+
+	outcome = True
+
+	try:
+		OperatingSystem.mkdir(fullpath)
+
+	except:
+		print "Cannot create folder - ", fullpath
+		outcome = False
+
+	return outcome
+
+
+
+# ---------------------------------------------
+# Deletes a folder
+# ---------------------------------------------
+
+def deletefolder(fullpath):
+
+	outcome = True
+
+	try:
+		FileSystem.rmtree(fullpath)
+
+	except:
+		print "Cannot delete folder - ", fullpath
+		outcome = False
+
+	return outcome

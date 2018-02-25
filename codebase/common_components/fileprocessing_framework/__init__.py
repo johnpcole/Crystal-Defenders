@@ -1,3 +1,9 @@
+# Version 5.4
+
+# - copyfile, makefolder, deletefolder added
+
+# ====================================================================================
+
 # Version 5.3
 
 # - getfolderlisting fixed
