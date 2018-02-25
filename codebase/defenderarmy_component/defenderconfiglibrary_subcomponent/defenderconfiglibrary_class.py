@@ -1,5 +1,6 @@
 from defenderconfig_subcomponent import defenderconfig_module as DefenderConfiguration
 from ...common_components.fileprocessing_framework import fileprocessing_module as File
+from ...common_components.dataprocessing_framework import dataprocessing_module as Data
 
 
 
@@ -31,7 +32,7 @@ class DefineDefenderConfigurationLibrary:
 			for configitem in rawconfigs:
 
 				# Extract the first data field name and the rest of the line
-				fieldname, fieldvalue = File.extractdatapair(configitem)
+				fieldname, fieldvalue = Data.extractdatapair(configitem)
 				
 				if fieldname == "Level":
 
@@ -40,13 +41,13 @@ class DefineDefenderConfigurationLibrary:
 					newdefenderlevelconfig.copypartialconfig(newdefendertypeconfig)
 
 					# Get the tabulated data
-					tabulatedlist = File.extracttabulateddata(configitem)
+					tabulatedlist = Data.extracttabulateddata(configitem)
 					
 					# Loop over the tabulated pairs
 					for tabulateditem in tabulatedlist:
 
 						# Extract the nth data field name and the rest of the line
-						fieldnametwo, fieldvaluetwo = File.extractdatapair(tabulateditem)
+						fieldnametwo, fieldvaluetwo = Data.extractdatapair(tabulateditem)
 
 						# Set the defender level type specific data
 						newdefenderlevelconfig.setdata(fieldnametwo, fieldvaluetwo)

@@ -1,3 +1,9 @@
+# Version 5.5
+
+# - extracttabulateddata, extractcommadata, extractdatapair removed (moved to dataprocessing)
+
+# ====================================================================================
+
 # Version 5.4
 
 # - copyfile, makefolder, deletefolder added

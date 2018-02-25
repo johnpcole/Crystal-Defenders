@@ -1,5 +1,6 @@
 from ..common_components.fileprocessing_framework import fileprocessing_module as File
 from ..common_components.vector_datatype import vector_module as Vector
+from ..common_components.dataprocessing_framework import dataprocessing_module as Data
 
 # -------------------------------------------------------------------
 # Returns the colour of text for crystal count
@@ -39,7 +40,7 @@ def getimagedata(filenameandpath):
 	rawdata = File.readfromdisk(filenameandpath)
 
 	for dataline in rawdata:
-		section = File.extracttabulateddata(dataline)
+		section = Data.extracttabulateddata(dataline)
 		sectioncount = len(section)
 
 		if (sectioncount == 2) or (sectioncount == 3):
@@ -49,7 +50,7 @@ def getimagedata(filenameandpath):
 				imagename = prefix
 				outcome.append(subfolder + "\t" + imagename)
 			else:
-				iterations = File.extractcommadata(section[2])
+				iterations = Data.extractcommadata(section[2])
 				for iteration in iterations:
 					imagename = prefix + " - " + iteration
 					outcome.append(subfolder + "\t" + imagename)
